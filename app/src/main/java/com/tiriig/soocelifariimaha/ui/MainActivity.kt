@@ -1,10 +1,9 @@
-package com.tiriig.soocelifariimaha
+package com.tiriig.soocelifariimaha.ui
 
 import android.content.*
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding

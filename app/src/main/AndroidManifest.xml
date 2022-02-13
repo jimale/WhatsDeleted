@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SooCeliFariimaha">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.tiriig.soocelifariimaha.NotificationListener"
+        <service android:name="com.tiriig.soocelifariimaha.services.NotificationListener"
             android:label="service"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="true">

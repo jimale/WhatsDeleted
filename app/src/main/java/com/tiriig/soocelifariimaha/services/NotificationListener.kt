@@ -1,16 +1,9 @@
-package com.tiriig.soocelifariimaha
+package com.tiriig.soocelifariimaha.services
 
-import android.app.Notification
 import android.content.Intent
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
-import android.graphics.Bitmap
-
-import android.os.Bundle
-
-
 
 
 class NotificationListener: NotificationListenerService() {
@@ -32,14 +25,12 @@ class NotificationListener: NotificationListenerService() {
         val text = extras.getCharSequence("android.text").toString()
 
 
-
         intent.putExtra("ticker", ticker)
         intent.putExtra("title", title)
         intent.putExtra("text", title+"\n"+text)
 
         sendBroadcast(intent)
 
-        //Log.d("DDD", "Notification is posted KKKKKKKKKKKKKKKKKKKK")
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
