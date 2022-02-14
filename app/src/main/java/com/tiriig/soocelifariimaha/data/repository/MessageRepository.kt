@@ -1,5 +1,7 @@
 package com.tiriig.soocelifariimaha.data.repository
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import com.tiriig.soocelifariimaha.data.Database
 import com.tiriig.soocelifariimaha.data.model.Message
 import kotlinx.coroutines.Dispatchers
@@ -16,16 +18,17 @@ class MessageRepository @Inject constructor(
     suspend fun saveMessage(message: Message) {
         withContext(Dispatchers.IO) {
             database.userDao().save(message)
+            Log.d("HHH","HHHHHHHHHHH $message")
         }
     }
 
-    suspend fun fetchMessages():Flow<Message>{
+    suspend fun fetchMessages(): LiveData<List<Message>> {
         return withContext(Dispatchers.IO){
             database.userDao().getMessages()
         }
     }
 
-    suspend fun fetchMessagesByUser(user: String):Flow<Message>{
+    suspend fun fetchMessagesByUser(user: String):LiveData<List<Message>>{
         return withContext(Dispatchers.IO){
             database.userDao().getMessagesByUser(user)
         }

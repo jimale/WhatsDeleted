@@ -1,5 +1,6 @@
 package com.tiriig.soocelifariimaha.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,14 +11,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     suspend fun save(data: Message)
 
     @Query("SELECT * from message")
-    fun getMessages(): Flow<Message>
+    fun getMessages(): LiveData<List<Message>>
 
     @Query("SELECT * from message where user =:user")
-    fun getMessagesByUser(user: String): Flow<Message>
+    fun getMessagesByUser(user: String): LiveData<List<Message>>
 
     @Query("DELETE FROM Message")
     fun clear()

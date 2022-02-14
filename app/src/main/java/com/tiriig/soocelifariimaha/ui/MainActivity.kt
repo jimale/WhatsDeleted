@@ -10,16 +10,20 @@ import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
 import android.content.Intent
 
 import android.content.BroadcastReceiver
+import android.widget.Toast
+import androidx.activity.viewModels
+import com.tiriig.soocelifariimaha.data.model.Message
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
-
-
-
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var notificationBroadcastReceiver: BroadcastReceiver
     private var enableNotificationDialog: AlertDialog? = null
+
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +39,28 @@ class MainActivity : AppCompatActivity() {
 
         //get notifications
         getNotification()
+
+        fetchMessages()
+    }
+
+    private fun fetchMessages() {
+        val adapter = MainAdapter()
+        viewModel.getMessagesByUser("Sagal").observe(this,{
+            adapter.submitList(it)
+        })
+        binding.recyclerView.adapter = adapter
     }
 
     private fun getNotification(){
         notificationBroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent) {
-                val receivedNotificationCode = intent.getStringExtra("text")
+                val user = intent.getStringExtra("user")?:""
+                val text = intent.getStringExtra("text")?:""
+//                val time = intent.getStringExtra("time")?:""
 
-                binding.imageChangeExplanation.text = receivedNotificationCode
+                //Save message to the database
+                val message = Message((0..20000).random(),user,text,"09 may")
+                viewModel.saveMessage(message)
             }
         }
 
@@ -71,7 +89,6 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
-
 
     private fun buildNotificationServiceAlertDialog(): AlertDialog {
         val alertDialogBuilder = AlertDialog.Builder(this)

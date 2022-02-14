@@ -6,7 +6,7 @@ import com.tiriig.soocelifariimaha.data.model.Message
 
 @Database(
     entities = [Message::class],
-    version = 1,
+    version = 9,
     exportSchema = true
 )
 

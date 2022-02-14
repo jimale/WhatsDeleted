@@ -25,9 +25,9 @@ class NotificationListener: NotificationListenerService() {
         val text = extras.getCharSequence("android.text").toString()
 
 
-        intent.putExtra("ticker", ticker)
-        intent.putExtra("title", title)
-        intent.putExtra("text", title+"\n"+text)
+        intent.putExtra("time", sbn.postTime)
+        intent.putExtra("user", title)
+        intent.putExtra("text", text)
 
         sendBroadcast(intent)
 
@@ -41,8 +41,9 @@ class NotificationListener: NotificationListenerService() {
         val title = extras.getString("android.title")
         val text = extras.getCharSequence("android.text").toString()
 
-        intent.putExtra("title", title)
-        intent.putExtra("text", title+"\n"+text)
+        intent.putExtra("time", sbn.postTime)
+        intent.putExtra("user", title)
+        intent.putExtra("text", text)
         sendBroadcast(intent)
     }
 }
