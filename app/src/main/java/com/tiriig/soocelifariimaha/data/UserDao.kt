@@ -14,10 +14,10 @@ interface UserDao {
     @Insert()
     suspend fun save(data: Message)
 
-    @Query("SELECT * from message")
+    @Query("SELECT * from message order by time")
     fun getMessages(): LiveData<List<Message>>
 
-    @Query("SELECT * from message where user =:user")
+    @Query("SELECT * from message where user =:user order by time")
     fun getMessagesByUser(user: String): LiveData<List<Message>>
 
     @Query("DELETE FROM Message")
