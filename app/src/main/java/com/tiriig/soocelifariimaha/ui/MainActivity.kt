@@ -4,17 +4,12 @@ import android.content.*
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
-import android.content.Intent
-
-import android.content.BroadcastReceiver
-import android.widget.Toast
-import androidx.activity.viewModels
 import com.tiriig.soocelifariimaha.data.model.Message
+import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -45,9 +40,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchMessages() {
         val adapter = MainAdapter()
-        viewModel.getMessagesByUser("Sagal").observe(this,{
+        viewModel.getMessagesByUser("Sagal").observe(this) {
             adapter.submitList(it)
-        })
+        }
         binding.recyclerView.adapter = adapter
     }
 
@@ -56,10 +51,12 @@ class MainActivity : AppCompatActivity() {
             override fun onReceive(context: Context?, intent: Intent) {
                 val user = intent.getStringExtra("user")?:""
                 val text = intent.getStringExtra("text")?:""
-//                val time = intent.getStringExtra("time")?:""
+                val time = intent.getLongExtra("time",0)
+//                val id = intent.getIntExtra("id",0)
+                //Toast.makeText(this@MainActivity, "$user || ID = $id", Toast.LENGTH_SHORT).show()
 
                 //Save message to the database
-                val message = Message((0..20000).random(),user,text,"09 may")
+                val message = Message(user,text,"09 may")
                 viewModel.saveMessage(message)
             }
         }
