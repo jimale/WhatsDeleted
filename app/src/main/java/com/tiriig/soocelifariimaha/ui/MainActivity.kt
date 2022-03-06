@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.tiriig.soocelifariimaha.data.model.Message
 import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
+import com.tiriig.soocelifariimaha.ui.util.getRandomNum
 import com.tiriig.soocelifariimaha.ui.util.getTime
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,11 +54,12 @@ class MainActivity : AppCompatActivity() {
                 val user = intent.getStringExtra("user")?:""
                 val text = intent.getStringExtra("text")?:""
                 val time = intent.getLongExtra("time",0)
+                val id  = getRandomNum()
 //                val id = intent.getIntExtra("id",0)
                 //Toast.makeText(this@MainActivity, "$user || ID = $id", Toast.LENGTH_SHORT).show()
 
                 //Save message to the database
-                val message = Message(user,text,time.getTime())
+                val message = Message(id,user,text,time.getTime())
                 viewModel.saveMessage(message)
             }
         }

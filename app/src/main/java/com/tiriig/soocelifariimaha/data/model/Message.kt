@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Message(
+    @PrimaryKey
+    val id: String,
     val user: String,
     val message: String,
-    @PrimaryKey
     val time: String
 )
