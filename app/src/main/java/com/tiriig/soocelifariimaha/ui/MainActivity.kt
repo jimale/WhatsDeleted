@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.tiriig.soocelifariimaha.data.model.Message
 import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
+import com.tiriig.soocelifariimaha.ui.util.getTime
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 //Toast.makeText(this@MainActivity, "$user || ID = $id", Toast.LENGTH_SHORT).show()
 
                 //Save message to the database
-                val message = Message(user,text,"09 may")
+                val message = Message(user,text,time.getTime())
                 viewModel.saveMessage(message)
             }
         }
