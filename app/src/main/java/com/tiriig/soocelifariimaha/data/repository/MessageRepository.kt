@@ -17,7 +17,6 @@ class MessageRepository @Inject constructor(
     suspend fun saveMessage(chat: Chat) {
         withContext(Dispatchers.IO) {
             database.userDao().save(chat)
-            Log.d("HHH","HHHHHHHHHHH $chat")
         }
     }
 

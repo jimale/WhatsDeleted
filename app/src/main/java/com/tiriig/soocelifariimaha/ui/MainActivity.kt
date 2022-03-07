@@ -55,8 +55,6 @@ class MainActivity : AppCompatActivity() {
                 val text = intent.getStringExtra("text")?:""
                 val time = intent.getLongExtra("time",0)
                 val id  = getRandomNum()
-//                val id = intent.getIntExtra("id",0)
-                //Toast.makeText(this@MainActivity, "$user || ID = $id", Toast.LENGTH_SHORT).show()
 
                 //Save message to the database
                 val message = Chat(id,user,text,time.getTime())
