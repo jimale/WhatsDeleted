@@ -7,7 +7,7 @@ import android.text.TextUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.tiriig.soocelifariimaha.data.model.Message
+import com.tiriig.soocelifariimaha.data.model.Chat
 import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
 import com.tiriig.soocelifariimaha.ui.util.getRandomNum
 import com.tiriig.soocelifariimaha.ui.util.getTime
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 //Toast.makeText(this@MainActivity, "$user || ID = $id", Toast.LENGTH_SHORT).show()
 
                 //Save message to the database
-                val message = Message(id,user,text,time.getTime())
+                val message = Chat(id,user,text,time.getTime())
                 viewModel.saveMessage(message)
             }
         }

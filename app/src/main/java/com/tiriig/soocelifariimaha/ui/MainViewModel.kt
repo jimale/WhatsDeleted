@@ -2,7 +2,7 @@ package com.tiriig.soocelifariimaha.ui
 
 import androidx.lifecycle.*
 
-import com.tiriig.soocelifariimaha.data.model.Message
+import com.tiriig.soocelifariimaha.data.model.Chat
 import com.tiriig.soocelifariimaha.data.repository.MessageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,18 +13,18 @@ class MainViewModel @Inject constructor(
     private val repository: MessageRepository,
 ) : ViewModel() {
 
-    fun saveMessage(message: Message) {
+    fun saveMessage(chat: Chat) {
         viewModelScope.launch {
-            repository.saveMessage(message)
+            repository.saveMessage(chat)
         }
     }
 
-    fun getMessages(): LiveData<List<Message>> = liveData {
+    fun getMessages(): LiveData<List<Chat>> = liveData {
         val response = repository.fetchMessages()
         emitSource(response)
     }
 
-    fun getMessagesByUser(user: String): LiveData<List<Message>> = liveData {
+    fun getMessagesByUser(user: String): LiveData<List<Chat>> = liveData {
         val response = repository.fetchMessagesByUser(user)
         emitSource(response)
     }
