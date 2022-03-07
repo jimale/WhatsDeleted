@@ -9,5 +9,5 @@ data class Chat(
     val id: String,
     val user: String,
     val message: String,
-    val time: String
+    val time: Long
 )

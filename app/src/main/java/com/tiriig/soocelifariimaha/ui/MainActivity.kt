@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 val id  = getRandomNum()
 
                 //Save message to the database
-                val message = Chat(id,user,text,time.getTime())
+                val message = Chat(id,user,text,time)
                 viewModel.saveMessage(message)
             }
         }
