@@ -1,6 +1,5 @@
 package com.tiriig.soocelifariimaha.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.tiriig.soocelifariimaha.data.Database
 import com.tiriig.soocelifariimaha.data.model.Chat
@@ -16,7 +15,9 @@ class MessageRepository @Inject constructor(
 
     suspend fun saveMessage(chat: Chat) {
         withContext(Dispatchers.IO) {
-            database.userDao().save(chat)
+            //fetch last message and make comparison to avoid duplicates
+            val lastMessage = database.userDao().getLastMessage(chat.user)?:""
+            if (chat.message != lastMessage) database.userDao().save(chat)
         }
     }
 
