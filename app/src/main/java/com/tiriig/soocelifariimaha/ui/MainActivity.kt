@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchMessages() {
         val adapter = MainAdapter()
-        viewModel.getMessagesByUser("Sagal").observe(this) {
+        viewModel.getChat().observe(this) {
             adapter.submitList(it)
         }
         binding.recyclerView.adapter = adapter

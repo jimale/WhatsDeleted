@@ -19,8 +19,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getMessages(): LiveData<List<Chat>> = liveData {
-        val response = repository.fetchMessages()
+    fun getChat(): LiveData<List<Chat>> = liveData {
+        val response = repository.fetchChats()
         emitSource(response)
     }
 

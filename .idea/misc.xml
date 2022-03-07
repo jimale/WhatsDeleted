@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31354166666666666" />
+        <entry key="app/src/main/res/layout/item_chat.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.32864583333333336" />
       </map>
     </option>

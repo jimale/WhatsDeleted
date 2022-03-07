@@ -21,9 +21,9 @@ class MessageRepository @Inject constructor(
         }
     }
 
-    suspend fun fetchMessages(): LiveData<List<Chat>> {
+    suspend fun fetchChats(): LiveData<List<Chat>> {
         return withContext(Dispatchers.IO){
-            database.userDao().getMessages()
+            database.userDao().getChats()
         }
     }
 

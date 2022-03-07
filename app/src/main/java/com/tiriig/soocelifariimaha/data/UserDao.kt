@@ -13,8 +13,8 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(data: Chat)
 
-    @Query("SELECT * from chat order by time")
-    fun getMessages(): LiveData<List<Chat>>
+    @Query("SELECT id,user, message, time from chat group by user order by time DESC")
+    fun getChats(): LiveData<List<Chat>>
 
     @Query("SELECT * from chat where user =:user order by time")
     fun getMessagesByUser(user: String): LiveData<List<Chat>>

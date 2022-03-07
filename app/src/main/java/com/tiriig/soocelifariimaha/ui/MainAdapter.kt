@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tiriig.soocelifariimaha.data.model.Chat
-import com.tiriig.soocelifariimaha.databinding.ItemMessageBinding
+import com.tiriig.soocelifariimaha.databinding.ItemChatBinding
+import com.tiriig.soocelifariimaha.ui.util.getTime
 
 
 class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(QuizzesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -21,7 +22,7 @@ class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(QuizzesDiffCallbac
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: ItemMessageBinding) :
+    inner class ViewHolder(private val binding: ItemChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
         //Used to store the clicked data
         private var currentData: Chat? = null
@@ -29,7 +30,9 @@ class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(QuizzesDiffCallbac
         @SuppressLint("SetTextI18n")
         fun bind(item: Chat?) {
             item?.let {
+                binding.user.text = item.user
                 binding.lastMessage.text = item.message
+                binding.date.text = item.time.getTime()
             }
             currentData = item
         }
