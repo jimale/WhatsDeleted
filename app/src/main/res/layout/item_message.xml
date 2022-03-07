@@ -3,18 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="10dp"
-    android:background="#F8E9E9"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:layout_height="wrap_content">
+    android:background="#E6E6E6"
+    android:padding="10dp">
 
     <TextView
-        android:text="Iska waran wll"
-        android:layout_marginTop="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/last_message"
+        android:id="@+id/message"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="How are you doing" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message"
+        tools:text="02-02-2022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
