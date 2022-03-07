@@ -1,6 +1,7 @@
 package com.tiriig.soocelifariimaha.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,7 @@ import com.tiriig.soocelifariimaha.databinding.ItemChatBinding
 import com.tiriig.soocelifariimaha.ui.util.getTime
 
 
-class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(QuizzesDiffCallback()) {
+class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(MainDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,6 +28,14 @@ class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(QuizzesDiffCallbac
         //Used to store the clicked data
         private var currentData: Chat? = null
 
+        init {
+            binding.root.setOnClickListener {
+                val intent = Intent(it.context, ChatDetailActivity::class.java)
+                intent.putExtra("name", currentData?.user)
+                it.context.startActivity(intent)
+            }
+        }
+
         @SuppressLint("SetTextI18n")
         fun bind(item: Chat?) {
             item?.let {
@@ -38,7 +47,7 @@ class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(QuizzesDiffCallbac
         }
     }
 
-    class QuizzesDiffCallback : DiffUtil.ItemCallback<Chat>() {
+    class MainDiffCallback : DiffUtil.ItemCallback<Chat>() {
         override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
             return oldItem.user == newItem.user
         }
