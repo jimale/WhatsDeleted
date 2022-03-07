@@ -5,7 +5,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.tiriig.soocelifariimaha.databinding.ActivityChatDetailBinding
 import com.tiriig.soocelifariimaha.ui.util.ChatDetailAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChatDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChatDetailBinding

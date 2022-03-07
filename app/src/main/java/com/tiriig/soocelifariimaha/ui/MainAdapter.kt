@@ -31,7 +31,7 @@ class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(MainDiffCallback()
         init {
             binding.root.setOnClickListener {
                 val intent = Intent(it.context, ChatDetailActivity::class.java)
-                intent.putExtra("name", currentData?.user)
+                intent.putExtra("user", currentData?.user)
                 it.context.startActivity(intent)
             }
         }
