@@ -3,14 +3,14 @@ package com.tiriig.soocelifariimaha.ui
 import androidx.lifecycle.*
 
 import com.tiriig.soocelifariimaha.data.model.Chat
-import com.tiriig.soocelifariimaha.data.repository.MessageRepository
+import com.tiriig.soocelifariimaha.data.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: MessageRepository,
+    private val repository: ChatRepository,
 ) : ViewModel() {
 
     fun saveMessage(chat: Chat) {

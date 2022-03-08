@@ -1,23 +1,22 @@
 package com.tiriig.soocelifariimaha.ui
 
-import android.content.*
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.tiriig.soocelifariimaha.data.model.Chat
 import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
-import com.tiriig.soocelifariimaha.ui.util.getRandomNum
-import com.tiriig.soocelifariimaha.ui.util.getTime
+import com.tiriig.soocelifariimaha.services.NLService
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var notificationBroadcastReceiver: BroadcastReceiver
     private var enableNotificationDialog: AlertDialog? = null
 
     private val viewModel: MainViewModel by viewModels()
@@ -34,8 +33,8 @@ class MainActivity : AppCompatActivity() {
             enableNotificationDialog!!.show()
         }
 
-        //get notifications
-        getNotification()
+        val intent = Intent(applicationContext, NLService::class.java)
+        startService(intent)
 
         fetchMessages()
     }
@@ -44,28 +43,8 @@ class MainActivity : AppCompatActivity() {
         val adapter = MainAdapter()
         viewModel.getChat().observe(this) {
             adapter.submitList(it)
+            binding.recyclerView.adapter = adapter
         }
-        binding.recyclerView.adapter = adapter
-    }
-
-    private fun getNotification(){
-        notificationBroadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent) {
-                val user = intent.getStringExtra("user")?:""
-                val text = intent.getStringExtra("text")?:""
-                val time = intent.getLongExtra("time",0)
-                val id  = getRandomNum()
-
-                //Save message to the database
-                val message = Chat(id,user,text,time)
-                viewModel.saveMessage(message)
-            }
-        }
-
-        // Finally we register a receiver to tell when a notification has been received
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.tiriig.soocelifariimaha")
-        registerReceiver(notificationBroadcastReceiver, intentFilter)
     }
 
     private fun isNotificationServiceEnabled(): Boolean {
@@ -93,20 +72,13 @@ class MainActivity : AppCompatActivity() {
         alertDialogBuilder.setTitle("notification_listener_service")
         alertDialogBuilder.setMessage("notification_listener_service_explanation")
         alertDialogBuilder.setPositiveButton(
-           "Yes"
-        ) { dialog, id -> startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")) }
+            "Yes"
+        ) { _, _ -> startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")) }
         alertDialogBuilder.setNegativeButton(
             "No"
-        ) { dialog, id ->
-            // If you choose to not enable the notification listener
-            // the app. will not work as expected
+        ) { _, _ ->
+            finish()
         }
         return alertDialogBuilder.create()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(notificationBroadcastReceiver);
-    }
-
 }

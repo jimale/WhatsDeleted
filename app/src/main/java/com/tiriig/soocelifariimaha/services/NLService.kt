@@ -1,11 +1,29 @@
 package com.tiriig.soocelifariimaha.services
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 
-class NotificationListener : NotificationListenerService() {
+class NLService : NotificationListenerService() {
+
+    override fun onCreate() {
+        super.onCreate()
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.tiriig.soocelifariimaha")
+        registerReceiver(NLServiceReceiver(), intentFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(NLServiceReceiver())
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Return STICKY to prevent the automatic service termination
+        return START_STICKY
+    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return super.onBind(intent)

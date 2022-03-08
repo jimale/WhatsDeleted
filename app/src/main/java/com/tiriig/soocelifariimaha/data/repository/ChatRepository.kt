@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MessageRepository @Inject constructor(
+class ChatRepository @Inject constructor(
     private val database: Database
 )  {
 
