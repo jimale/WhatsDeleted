@@ -1,4 +1,4 @@
-package com.tiriig.soocelifariimaha.data
+package com.tiriig.soocelifariimaha.data.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

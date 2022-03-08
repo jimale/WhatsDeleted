@@ -2,7 +2,7 @@ package com.tiriig.soocelifariimaha.di
 
 import android.app.Application
 import androidx.room.Room
-import com.tiriig.soocelifariimaha.data.Database
+import com.tiriig.soocelifariimaha.data.database.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,7 +1,7 @@
 package com.tiriig.soocelifariimaha.data.repository
 
 import androidx.lifecycle.LiveData
-import com.tiriig.soocelifariimaha.data.Database
+import com.tiriig.soocelifariimaha.data.database.Database
 import com.tiriig.soocelifariimaha.data.model.Chat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
