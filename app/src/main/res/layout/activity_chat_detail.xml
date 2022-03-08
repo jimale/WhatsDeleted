@@ -14,6 +14,7 @@
         android:paddingBottom="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
+        app:reverseLayout="true"
         tools:listitem="@layout/item_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

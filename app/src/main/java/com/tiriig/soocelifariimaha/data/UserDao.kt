@@ -16,7 +16,7 @@ interface UserDao {
     @Query("SELECT id,user, message, time from chat group by user order by time DESC")
     fun getChats(): LiveData<List<Chat>>
 
-    @Query("SELECT * from chat where user =:user order by time")
+    @Query("SELECT * from chat where user =:user order by time DESC")
     fun getMessagesByUser(user: String): LiveData<List<Chat>>
 
     @Query("SELECT message from chat where user =:user order by time DESC LIMIT 1")
