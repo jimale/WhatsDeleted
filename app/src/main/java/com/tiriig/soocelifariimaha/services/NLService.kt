@@ -39,19 +39,13 @@ class NLService : NotificationListenerService() {
     private fun sendMessage(sbn: StatusBarNotification) {
         val intent = Intent("com.tiriig.soocelifariimaha")
 
-        var ticker = ""
-        if (sbn.notification.tickerText != null) {
-            ticker = sbn.notification.tickerText.toString()
-        }
         val extras = sbn.notification.extras
         val title = extras.getString("android.title")
         val text = extras.getCharSequence("android.text").toString()
 
-
         intent.putExtra("time", sbn.postTime)
         intent.putExtra("user", title)
         intent.putExtra("text", text)
-        intent.putExtra("id", sbn.key)
 
         sendBroadcast(intent)
     }
