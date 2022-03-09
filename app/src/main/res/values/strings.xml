@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Soo celi fariimaha</string>
+    <string name="default_notification_channel_id">101</string>
 </resources>

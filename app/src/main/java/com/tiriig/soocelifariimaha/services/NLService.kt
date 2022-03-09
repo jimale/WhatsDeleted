@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import android.util.Log
 
 class NLService : NotificationListenerService() {
 
@@ -43,30 +44,27 @@ class NLService : NotificationListenerService() {
         val title = extras.getString("android.title")
         val text = extras.getCharSequence("android.text").toString()
 
-        intent.putExtra("time", sbn.postTime)
+        intent.putExtra("time", sbn.notification.`when`)
         intent.putExtra("user", title)
         intent.putExtra("text", text)
+
+        //handling deleted message
+        handleDeletedMessage(sbn)
 
         sendBroadcast(intent)
     }
 
-    override fun onNotificationRemoved(sbn: StatusBarNotification?) {
-        super.onNotificationRemoved(sbn)
-        if (sbn != null && sbn.packageName == "com.whatsapp") {
-            sendDeletedMessage(sbn)
-        }
-    }
-
-    private fun sendDeletedMessage(sbn: StatusBarNotification) {
+    private fun handleDeletedMessage(sbn: StatusBarNotification) {
         val intent = Intent("com.tiriig.soocelifariimaha")
 
         val extras = sbn.notification.extras
-        val title = extras.getString("android.title")
-        val text = extras.getCharSequence("android.text").toString()
+        val user = extras.getString("android.title")
+        val message = extras.getCharSequence("android.text").toString()
 
-        intent.putExtra("time", sbn.postTime)
-        intent.putExtra("user", title)
-        intent.putExtra("text", text)
-        sendBroadcast(intent)
+        if (message == "This message was deleted"){
+            intent.putExtra("isDeleted",true)
+            intent.putExtra("user", user)
+            sendBroadcast(intent)
+        }
     }
 }

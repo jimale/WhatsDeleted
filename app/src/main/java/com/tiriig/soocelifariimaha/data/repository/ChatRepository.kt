@@ -11,25 +11,31 @@ import javax.inject.Singleton
 @Singleton
 class ChatRepository @Inject constructor(
     private val database: Database
-)  {
+) {
 
     suspend fun saveMessage(chat: Chat) {
         withContext(Dispatchers.IO) {
             //fetch last message and make comparison to avoid duplicates
-            val lastMessage = database.userDao().getLastMessage(chat.user)?:""
+            val lastMessage = database.userDao().getLastMessage(chat.user) ?: ""
             if (chat.message != lastMessage) database.userDao().save(chat)
         }
     }
 
     suspend fun fetchChats(): LiveData<List<Chat>> {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             database.userDao().getChats()
         }
     }
 
-    suspend fun fetchMessagesByUser(user: String):LiveData<List<Chat>>{
-        return withContext(Dispatchers.IO){
+    suspend fun fetchMessagesByUser(user: String): LiveData<List<Chat>> {
+        return withContext(Dispatchers.IO) {
             database.userDao().getMessagesByUser(user)
+        }
+    }
+
+    suspend fun lastMessage(user: String): String {
+        return withContext(Dispatchers.IO){
+            database.userDao().getLastMessage(user) ?: ""
         }
     }
 }
