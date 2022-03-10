@@ -31,7 +31,7 @@ class NLServiceReceiver : BroadcastReceiver() {
         val time = intent.getLongExtra("time", 0)
         val id = getRandomNum()
 
-        val isDeleted = intent.getBooleanExtra("isDeleted", false)
+        val isDelete = intent.getBooleanExtra("isDeleted", false)
 
         //Save message to the database
         val chat = Chat(id, user, text, time)
@@ -40,10 +40,16 @@ class NLServiceReceiver : BroadcastReceiver() {
         }
 
         //Notify user if message was deleted
-        if (isDeleted) {
+        if (isDelete) {
             applicationScope.launch {
-                val message = repository.lastMessage(user)
-                notifications.notify(user, "$user was deleted a message", message)
+                val lastMessage = repository.lastMessage(user)
+                lastMessage?.let {
+                    if (!lastMessage.isDeleted){
+                        //if the message is deleted notify the user and change delete state to deleted
+                        notifications.notify(user, "$user was deleted a message", lastMessage.message)
+                        repository.messageIsDeleted(lastMessage.id)
+                    }
+                }
             }
         }
     }

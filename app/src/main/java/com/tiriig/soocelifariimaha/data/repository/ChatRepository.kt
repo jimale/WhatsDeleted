@@ -3,6 +3,7 @@ package com.tiriig.soocelifariimaha.data.repository
 import androidx.lifecycle.LiveData
 import com.tiriig.soocelifariimaha.data.database.Database
 import com.tiriig.soocelifariimaha.data.model.Chat
+import com.tiriig.soocelifariimaha.data.model.DeletedMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -16,8 +17,12 @@ class ChatRepository @Inject constructor(
     suspend fun saveMessage(chat: Chat) {
         withContext(Dispatchers.IO) {
             //fetch last message and make comparison to avoid duplicates
-            val lastMessage = database.userDao().getLastMessage(chat.user) ?: ""
-            if (chat.message != lastMessage) database.userDao().save(chat)
+            val lastMessage = database.userDao().getLastMessage(chat.user)
+            if (lastMessage != null) {
+                if (chat.message != lastMessage.message) database.userDao().save(chat)
+            } else {
+                database.userDao().save(chat)
+            }
         }
     }
 
@@ -33,9 +38,15 @@ class ChatRepository @Inject constructor(
         }
     }
 
-    suspend fun lastMessage(user: String): String {
-        return withContext(Dispatchers.IO){
-            database.userDao().getLastMessage(user) ?: ""
+    suspend fun lastMessage(user: String): DeletedMessage? {
+        return withContext(Dispatchers.IO) {
+            database.userDao().getLastMessage(user)
+        }
+    }
+
+    suspend fun messageIsDeleted(id: String) {
+        withContext(Dispatchers.IO) {
+            database.userDao().messageIsDeleted(id)
         }
     }
 }
