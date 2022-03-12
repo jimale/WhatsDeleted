@@ -8,6 +8,7 @@ import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.tiriig.soocelifariimaha.R
@@ -84,5 +85,11 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         return alertDialogBuilder.create()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        // Allows NavigationUI to support proper up navigation or the drawer layout
+        // drawer menu, depending on the situation
+        return findNavController(R.id.nav_host_fragment).navigateUp()
     }
 }
