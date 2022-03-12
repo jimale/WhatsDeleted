@@ -1,21 +1,19 @@
-package com.tiriig.soocelifariimaha.ui
+package com.tiriig.soocelifariimaha.ui.chat.detail
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tiriig.soocelifariimaha.data.model.Chat
-import com.tiriig.soocelifariimaha.databinding.ItemChatBinding
-import com.tiriig.soocelifariimaha.ui.util.getTime
+import com.tiriig.soocelifariimaha.databinding.ItemMessageBinding
 
-
-class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(MainDiffCallback()) {
+class ChatDetailAdapter :
+    ListAdapter<Chat, ChatDetailAdapter.ViewHolder>(ChatDetailDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -23,31 +21,22 @@ class MainAdapter : ListAdapter<Chat, MainAdapter.ViewHolder>(MainDiffCallback()
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: ItemChatBinding) :
+    inner class ViewHolder(private val binding: ItemMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         //Used to store the clicked data
         private var currentData: Chat? = null
 
-        init {
-            binding.root.setOnClickListener {
-                val intent = Intent(it.context, ChatDetailActivity::class.java)
-                intent.putExtra("user", currentData?.user)
-                it.context.startActivity(intent)
-            }
-        }
-
         @SuppressLint("SetTextI18n")
         fun bind(item: Chat?) {
             item?.let {
-                binding.user.text = item.user
-                binding.lastMessage.text = item.message
-                binding.date.text = item.time.getTime()
+                binding.message.text = item.message
+                binding.date.text = item.time.toString()
             }
             currentData = item
         }
     }
 
-    class MainDiffCallback : DiffUtil.ItemCallback<Chat>() {
+    class ChatDetailDiffCallback : DiffUtil.ItemCallback<Chat>() {
         override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
             return oldItem.user == newItem.user
         }

@@ -1,4 +1,4 @@
-package com.tiriig.soocelifariimaha.ui
+package com.tiriig.soocelifariimaha.ui.chat
 
 import androidx.lifecycle.*
 
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class ChatViewModel @Inject constructor(
     private val repository: ChatRepository,
 ) : ViewModel() {
 

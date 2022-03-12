@@ -9,7 +9,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.tiriig.soocelifariimaha.R
-import com.tiriig.soocelifariimaha.ui.ChatDetailActivity
+import com.tiriig.soocelifariimaha.ui.MainActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,8 +18,9 @@ import kotlin.random.Random
 @Singleton
 class Notifications @Inject constructor(@ApplicationContext private val context: Context) {
     fun notify(user: String, title: String, message: String) {
-        val intent = Intent(context, ChatDetailActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java)
         intent.putExtra("user", user)
+        intent.putExtra("notification", true)
 
         //create pending flag based on OS version
         val pendingFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

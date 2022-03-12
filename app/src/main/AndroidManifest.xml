@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SooCeliFariimaha">
         <activity
-            android:name=".ui.ChatDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>

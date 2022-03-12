@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation.xml"
+    app:startDestination="@id/chatListFragment">
+
+    <fragment
+        android:id="@+id/chatDetailFragment"
+        android:name="com.tiriig.soocelifariimaha.ui.chat.detail.ChatDetailFragment"
+        android:label="Chat Detail"
+        tools:layout="@layout/fragment_chat_detail" />
+    <fragment
+        android:id="@+id/chatListFragment"
+        android:name="com.tiriig.soocelifariimaha.ui.chat.list.ChatListFragment"
+        android:label="ChatListFragment"
+        tools:layout="@layout/fragment_chat_list" />
+</navigation>
