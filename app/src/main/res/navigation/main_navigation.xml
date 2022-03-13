@@ -13,6 +13,6 @@
     <fragment
         android:id="@+id/chatListFragment"
         android:name="com.tiriig.soocelifariimaha.ui.chat.list.ChatListFragment"
-        android:label="ChatListFragment"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_chat_list" />
 </navigation>
