@@ -11,6 +11,8 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.tiriig.soocelifariimaha.R
 import com.tiriig.soocelifariimaha.databinding.ActivityMainBinding
 import com.tiriig.soocelifariimaha.services.NLService
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         //set up fragment Navigation
         val navHost =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        setupActionBarWithNavController(navHost.navController)
 
         //Handling notification click
         val isNotificationClicked = intent.getBooleanExtra("notification", false)
@@ -88,8 +91,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        // Allows NavigationUI to support proper up navigation or the drawer layout
-        // drawer menu, depending on the situation
         return findNavController(R.id.nav_host_fragment).navigateUp()
     }
 }
