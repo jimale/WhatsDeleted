@@ -10,30 +10,37 @@
         android:id="@+id/image"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:contentDescription="@string/user_image"
         android:src="@drawable/user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/user"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="1dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/date"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Lorem Epsom" />
 
     <TextView
         android:id="@+id/last_message"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
         android:ellipsize="end"
         android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toBottomOf="@id/user"
         tools:text="How are you doing Lorem " />
