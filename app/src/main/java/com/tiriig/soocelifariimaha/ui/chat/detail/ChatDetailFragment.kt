@@ -34,7 +34,7 @@ class ChatDetailFragment : Fragment() {
 
     private fun fetchChatsByUser() {
         val user = arguments?.getString("user") ?: ""
-        viewModel.getMessagesByUser(user).observe(this) {
+        viewModel.getMessagesByUser(user).observe(viewLifecycleOwner) {
             adapter.submitList(it)
             binding.recyclerView.adapter = adapter
         }
