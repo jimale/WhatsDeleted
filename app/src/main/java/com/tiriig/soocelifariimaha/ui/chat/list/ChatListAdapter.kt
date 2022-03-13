@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tiriig.soocelifariimaha.R
 import com.tiriig.soocelifariimaha.data.model.Chat
 import com.tiriig.soocelifariimaha.databinding.ItemChatBinding
-import com.tiriig.soocelifariimaha.ui.util.getTime
+import com.tiriig.soocelifariimaha.utility.getTime
 
 
 class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDiffCallback()) {

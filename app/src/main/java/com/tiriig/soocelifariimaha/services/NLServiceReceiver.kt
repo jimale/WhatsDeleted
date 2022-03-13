@@ -7,7 +7,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.tiriig.soocelifariimaha.data.model.Chat
 import com.tiriig.soocelifariimaha.data.repository.ChatRepository
-import com.tiriig.soocelifariimaha.ui.util.getRandomNum
+import com.tiriig.soocelifariimaha.utility.getRandomNum
 import com.tiriig.soocelifariimaha.utility.Notifications
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
