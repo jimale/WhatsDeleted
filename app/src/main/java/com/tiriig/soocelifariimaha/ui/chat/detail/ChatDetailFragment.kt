@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.tiriig.soocelifariimaha.databinding.FragmentChatDetailBinding
+import com.tiriig.soocelifariimaha.ui.MainActivity
 import com.tiriig.soocelifariimaha.ui.chat.ChatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +35,9 @@ class ChatDetailFragment : Fragment() {
 
     private fun fetchChatsByUser() {
         val user = arguments?.getString("user") ?: ""
+        //Display user in toolbar title
+        (activity as MainActivity).supportActionBar?.title = user
+
         viewModel.getMessagesByUser(user).observe(viewLifecycleOwner) {
             adapter.submitList(it)
             binding.recyclerView.adapter = adapter
