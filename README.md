@@ -1,2 +1,2 @@
-# Soo-celi-fariimaha
-WhatsApp recover deleted messages (Soo celi fariimaha WhatsApp ka ee la masaxey) 
+# WhatsDeleted
+ Recover WhatsApp deleted messages (Soo celi fariimaha WhatsApp ka ee la masaxey) 
