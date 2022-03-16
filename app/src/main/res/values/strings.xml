@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Soo celi fariimaha</string>
+    <string name="app_name">WhatsDeleted</string>
     <string name="default_notification_channel_id">101</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
