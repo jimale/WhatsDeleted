@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.tiriig.soocelifariimaha"
+        applicationId "com.tiriig.whatsdeleted"
         minSdk 21
         targetSdk 31
         versionCode 1

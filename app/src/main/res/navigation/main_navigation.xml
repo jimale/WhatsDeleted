@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/chatDetailFragment"
-        android:name="com.tiriig.soocelifariimaha.ui.chat.detail.ChatDetailFragment"
+        android:name="com.tiriig.whatsdeleted.ui.chat.detail.ChatDetailFragment"
         android:label="Chat Detail"
         tools:layout="@layout/fragment_chat_detail" />
     <fragment
         android:id="@+id/chatListFragment"
-        android:name="com.tiriig.soocelifariimaha.ui.chat.list.ChatListFragment"
+        android:name="com.tiriig.whatsdeleted.ui.chat.list.ChatListFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_chat_list" />
 </navigation>
