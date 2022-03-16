@@ -11,7 +11,7 @@ class NLService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         val intentFilter = IntentFilter()
-        intentFilter.addAction("com.tiriig.soocelifariimaha")
+        intentFilter.addAction("com.tiriig.whatsdeleted")
         registerReceiver(NLServiceReceiver(), intentFilter)
     }
 
@@ -37,7 +37,7 @@ class NLService : NotificationListenerService() {
     }
 
     private fun sendMessage(sbn: StatusBarNotification) {
-        val intent = Intent("com.tiriig.soocelifariimaha")
+        val intent = Intent("com.tiriig.whatsdeleted")
 
         val extras = sbn.notification.extras
         val title = extras.getString("android.title")
@@ -54,7 +54,7 @@ class NLService : NotificationListenerService() {
     }
 
     private fun handleDeletedMessage(sbn: StatusBarNotification) {
-        val intent = Intent("com.tiriig.soocelifariimaha")
+        val intent = Intent("com.tiriig.whatsdeleted")
 
         val extras = sbn.notification.extras
         val user = extras.getString("android.title")
