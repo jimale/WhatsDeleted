@@ -7,8 +7,8 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.tiriig.whatsdeleted.data.model.Chat
 import com.tiriig.whatsdeleted.data.repository.ChatRepository
-import com.tiriig.whatsdeleted.utility.getRandomNum
 import com.tiriig.whatsdeleted.utility.Notifications
+import com.tiriig.whatsdeleted.utility.getRandomNum
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,7 +36,17 @@ class NLServiceReceiver : BroadcastReceiver() {
         //Save message to the database
         val chat = Chat(id, user, text, time)
         applicationScope.launch {
-            repository.saveMessage(chat)
+            //check if the message from Group chat
+            if (user.contains("messages") || user.contains(":")) {
+                //Split the title because it contains the group name and user name
+                var group = user.split(":")[0]
+                val userName = user.split(":")[1]
+                //Split the group if it displays the number of unread messages
+                if (group.endsWith("messages)")) group = group.split(" (")[0]
+
+                val groupChat = Chat(id, group, "$userName:$text", time)
+                repository.saveMessage(groupChat)
+            } else repository.saveMessage(chat)
         }
 
         //Notify user if message was deleted

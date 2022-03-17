@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import com.tiriig.whatsdeleted.utility.isValidTitle
 
 class NLService : NotificationListenerService() {
 
@@ -33,6 +34,7 @@ class NLService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         if (sbn != null && sbn.packageName == "com.whatsapp") {
             sendMessage(sbn)
+            handleDeletedMessage(sbn)
         }
     }
 
@@ -47,10 +49,9 @@ class NLService : NotificationListenerService() {
         intent.putExtra("user", title)
         intent.putExtra("text", text)
 
-        //handling deleted message
-        handleDeletedMessage(sbn)
-
-        sendBroadcast(intent)
+        if (title != null && title.isValidTitle()) {
+            sendBroadcast(intent)
+        }
     }
 
     private fun handleDeletedMessage(sbn: StatusBarNotification) {
