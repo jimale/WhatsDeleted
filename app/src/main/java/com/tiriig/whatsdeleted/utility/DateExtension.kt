@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun Long.getTimeAndDate(): String {
-    return DateFormat.format("MM-dd-yyyy-HH:mm:ss", Date(this)).toString()
+    return DateFormat.format("MM-dd-yyyy  hh:mm aa", Date(this)).toString()
 }
 
 fun getRandomNum(): String {

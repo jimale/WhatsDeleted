@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tiriig.whatsdeleted.data.model.Chat
 import com.tiriig.whatsdeleted.databinding.ItemMessageBinding
+import com.tiriig.whatsdeleted.utility.getTimeAndDate
 
 class ChatDetailAdapter :
     ListAdapter<Chat, ChatDetailAdapter.ViewHolder>(ChatDetailDiffCallback()) {
@@ -30,7 +31,7 @@ class ChatDetailAdapter :
         fun bind(item: Chat?) {
             item?.let {
                 binding.message.text = item.message
-                binding.date.text = item.time.toString()
+                binding.date.text = item.time.getTimeAndDate()
             }
             currentData = item
         }
