@@ -4,6 +4,9 @@ package com.tiriig.whatsdeleted.utility
 fun String.isValidTitle(): Boolean {
     return when (this) {
         "WhatsApp" -> false
+        "Calling..." -> false
+        "Ringing.." -> false
+        "Ongoing voice call" -> false
         "WhatsApp Web" -> false
         "Finished backup" -> false
         "Backup in progress" -> false
