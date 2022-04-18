@@ -26,7 +26,7 @@ class NLServiceReceiver : BroadcastReceiver() {
         // ProcessLifecycleOwner provides lifecycle for the whole application process.
         val applicationScope = ProcessLifecycleOwner.get().lifecycleScope
 
-        val user = intent.getStringExtra("user") ?: ""
+        val title = intent.getStringExtra("user") ?: ""
         val text = intent.getStringExtra("text") ?: ""
         val time = intent.getLongExtra("time", 0)
         val id = getRandomNum()
@@ -34,17 +34,17 @@ class NLServiceReceiver : BroadcastReceiver() {
         val isDelete = intent.getBooleanExtra("isDeleted", false)
 
         //Save message to the database
-        val chat = Chat(id, user, text, time)
+        val chat = Chat(id, title, text, time)
         applicationScope.launch {
-            //check if the message from Group chat
-            if (user.contains("messages") || user.contains(":")) {
+            //check if the message is from Group chat
+            if (title.contains("messages") || title.contains(":")) {
                 //Split the title because it contains the group name and user name
-                var group = user.split(":")[0]
-                val userName = user.split(":")[1]
-                //Split the group if it displays the number of unread messages
+                var group = title.split(":")[0]
+                val user = title.split(":")[1]
+                //Split the group if displays the number of unread messages
                 if (group.endsWith("messages)")) group = group.split(" (")[0]
 
-                val groupChat = Chat(id, group, "$userName:$text", time)
+                val groupChat = Chat(id, group, "$user:$text", time)
                 repository.saveMessage(groupChat)
             } else repository.saveMessage(chat)
         }
@@ -52,11 +52,11 @@ class NLServiceReceiver : BroadcastReceiver() {
         //Notify user if message was deleted
         if (isDelete) {
             applicationScope.launch {
-                val lastMessage = repository.lastMessage(user)
+                val lastMessage = repository.lastMessage(title)
                 lastMessage?.let {
                     if (!lastMessage.isDeleted){
                         //if the message is deleted notify the user and change delete state to deleted
-                        notifications.notify(user, "$user was deleted a message", lastMessage.message)
+                        notifications.notify(title, "$title deleted a message", lastMessage.message)
                         repository.messageIsDeleted(lastMessage.id)
                     }
                 }
