@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.tiriig.whatsdeleted.databinding.FragmentChatDetailBinding
 import com.tiriig.whatsdeleted.ui.MainActivity
 import com.tiriig.whatsdeleted.ui.chat.ChatViewModel
+import com.tiriig.whatsdeleted.utility.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,9 +39,10 @@ class ChatDetailFragment : Fragment() {
         //Display user in toolbar title
         (activity as MainActivity).supportActionBar?.title = user
 
-        viewModel.getMessagesByUser(user).observe(viewLifecycleOwner) {
+        viewModel.getChatByUser.observe(viewLifecycleOwner) {
             adapter.submitList(it)
             binding.recyclerView.adapter = adapter
+            binding.loading.hide()
         }
     }
 

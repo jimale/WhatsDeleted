@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.tiriig.whatsdeleted.databinding.FragmentChatListBinding
 import com.tiriig.whatsdeleted.ui.chat.ChatViewModel
+import com.tiriig.whatsdeleted.utility.hide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,9 +34,10 @@ class ChatListFragment : Fragment() {
     }
 
     private fun fetchChat() {
-        viewModel.getChat().observe(viewLifecycleOwner) {
+        viewModel.getChatList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
             binding.recyclerView.adapter = adapter
+            binding.loading.hide()
         }
     }
 

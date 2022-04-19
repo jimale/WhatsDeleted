@@ -11,6 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val repository: ChatRepository,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     fun saveMessage(chat: Chat) {
@@ -19,12 +20,13 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    fun getChat(): LiveData<List<Chat>> = liveData {
+    val getChatList: LiveData<List<Chat>> = liveData {
         val response = repository.fetchChats()
         emitSource(response)
     }
 
-    fun getMessagesByUser(user: String): LiveData<List<Chat>> = liveData {
+    val getChatByUser: LiveData<List<Chat>> = liveData {
+        val user = savedStateHandle.get<String>("user") ?: ""
         val response = repository.fetchMessagesByUser(user)
         emitSource(response)
     }
