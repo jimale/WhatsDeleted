@@ -6,5 +6,5 @@
         android:bottomRightRadius="18dp"
         android:topRightRadius="18dp"
         android:bottomLeftRadius="20dp" />
-    <solid android:color="#DCF5FA" />
+    <solid android:color="@color/message_bg" />
 </shape>

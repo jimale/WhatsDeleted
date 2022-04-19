@@ -9,4 +9,5 @@
     <color name="blue">#062E93</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#8D0B01</color>
+    <color name="message_bg">#f0f0f3</color>
 </resources>
