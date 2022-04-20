@@ -5,6 +5,8 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/message_background.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/deleted_message_background.xml" value="0.2835" />
+        <entry key="app/src/main/res/drawable/ic_delete_24.xml" value="0.2835" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2835" />
         <entry key="app/src/main/res/drawable/message_background.xml" value="0.2835" />
         <entry key="app/src/main/res/layout/activity_chat_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31354166666666666" />

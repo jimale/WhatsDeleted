@@ -36,7 +36,7 @@ class Notifications @Inject constructor(@ApplicationContext private val context:
         val channelId = context.getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_delete_24)
             .setContentTitle(title)
             .setContentText(message)
             .setAutoCancel(true)
