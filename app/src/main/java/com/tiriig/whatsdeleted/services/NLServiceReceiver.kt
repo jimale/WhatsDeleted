@@ -57,7 +57,7 @@ class NLServiceReceiver : BroadcastReceiver() {
                 lastMessage?.let {
                     if (!lastMessage.isDeleted){
                         //if the message is deleted notify the user and change delete state to deleted
-                        notifications.notify(title, "$title deleted a message", lastMessage.message)
+                        notifications.notify(title, "$title deleted a message", "Click here to see")
                         repository.messageIsDeleted(lastMessage.id)
                     }
                 }
