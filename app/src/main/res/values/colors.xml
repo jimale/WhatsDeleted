@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#8D0B01</color>
     <color name="message_bg">#f0f0f3</color>
+    <color name="deleted_message">#FCBDBD</color>
 </resources>
