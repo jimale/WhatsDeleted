@@ -8,7 +8,7 @@ fun String.isValidTitle(): Boolean {
         "WhatsApp" -> false
         "Calling..." -> false
         "Ringing.." -> false
-        "Deleting messages.." -> false
+        "Deleting messages..." -> false
         "Ongoing voice call" -> false
         "WhatsApp Web" -> false
         "Finished backup" -> false
