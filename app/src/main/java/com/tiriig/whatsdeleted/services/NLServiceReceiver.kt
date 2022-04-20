@@ -3,6 +3,7 @@ package com.tiriig.whatsdeleted.services
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.tiriig.whatsdeleted.data.model.Chat
@@ -39,8 +40,8 @@ class NLServiceReceiver : BroadcastReceiver() {
             //check if the message is from Group chat
             if (title.contains("messages") || title.contains(":")) {
                 //Split the title because it contains the group name and user name
-                var group = title.split(":")[0]
-                val user = title.split(":")[1]
+                var group = title.substringBefore(":")
+                val user = title.substringAfter(": ")
                 //Split the group if displays the number of unread messages
                 if (group.endsWith("messages)")) group = group.split(" (")[0]
 
