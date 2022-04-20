@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var enableNotificationDialog: AlertDialog? = null
+    private lateinit var  navHost : NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setUpMain()
+        navigateToChatDetail()
     }
 
     private fun setUpMain() {
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
 
         //set up fragment Navigation
-        val navHost =
+        navHost =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         setupActionBarWithNavController(navHost.navController)
 
@@ -87,6 +90,12 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         return alertDialogBuilder.create()
+    }
+
+    private fun navigateToChatDetail(){
+        val notiDeleted = intent.getBooleanExtra("notificationDeleted",false)
+        val user = intent.getStringExtra("user")
+        if (notiDeleted) navHost.findNavController().navigate(R.id.chatDetailFragment,bundleOf("user" to user))
     }
 
     override fun onSupportNavigateUp(): Boolean {

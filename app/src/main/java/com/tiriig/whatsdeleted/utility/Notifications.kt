@@ -20,7 +20,7 @@ class Notifications @Inject constructor(@ApplicationContext private val context:
     fun notify(user: String, title: String, message: String) {
         val intent = Intent(context, MainActivity::class.java)
         intent.putExtra("user", user)
-        intent.putExtra("notification", true)
+        intent.putExtra("notificationDeleted", true)
 
         //create pending flag based on OS version
         val pendingFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
