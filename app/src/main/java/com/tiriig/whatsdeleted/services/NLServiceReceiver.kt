@@ -27,7 +27,7 @@ class NLServiceReceiver : BroadcastReceiver() {
         // ProcessLifecycleOwner provides lifecycle for the whole application process.
         val applicationScope = ProcessLifecycleOwner.get().lifecycleScope
 
-        val title = intent.getStringExtra("user") ?: ""
+        val title = intent.getStringExtra("title") ?: ""
         val text = intent.getStringExtra("text") ?: ""
         val time = intent.getLongExtra("time", 0)
         val id = getRandomNum()

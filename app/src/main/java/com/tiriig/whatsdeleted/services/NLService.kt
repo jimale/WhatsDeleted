@@ -46,7 +46,7 @@ class NLService : NotificationListenerService() {
         val text = extras.getCharSequence("android.text").toString()
 
         intent.putExtra("time", sbn.notification.`when`)
-        intent.putExtra("user", title)
+        intent.putExtra("title", title)
         intent.putExtra("text", text)
 
         if (title != null && title.isValidTitle()) {
@@ -63,7 +63,7 @@ class NLService : NotificationListenerService() {
 
         if (message == "This message was deleted"){
             intent.putExtra("isDeleted",true)
-            intent.putExtra("user", user)
+            intent.putExtra("title", user)
             sendBroadcast(intent)
         }
     }
