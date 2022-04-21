@@ -10,6 +10,7 @@ import com.tiriig.whatsdeleted.data.model.Chat
 import com.tiriig.whatsdeleted.data.repository.ChatRepository
 import com.tiriig.whatsdeleted.utility.Notifications
 import com.tiriig.whatsdeleted.utility.getRandomNum
+import com.tiriig.whatsdeleted.utility.isValidTitle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,8 +47,10 @@ class NLServiceReceiver : BroadcastReceiver() {
                 if (group.endsWith("messages)")) group = group.split(" (")[0]
 
                 val groupChat = Chat(id, group, "$user:$text", time)
-                repository.saveMessage(groupChat)
-            } else repository.saveMessage(chat)
+                if (text.isValidTitle()) repository.saveMessage(groupChat)
+            } else{
+                if (title.isValidTitle()) repository.saveMessage(chat)
+            }
         }
 
         //Notify user if message was deleted
