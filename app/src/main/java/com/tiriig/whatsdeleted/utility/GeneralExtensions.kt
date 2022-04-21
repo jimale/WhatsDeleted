@@ -5,6 +5,7 @@ import android.view.View
 
 fun String.isValidTitle(): Boolean {
     return when (this) {
+        "" -> false
         "WhatsApp" -> false
         "Calling..." -> false
         "Ringing.." -> false
