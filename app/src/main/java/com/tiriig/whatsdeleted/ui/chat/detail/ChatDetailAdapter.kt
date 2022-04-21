@@ -33,7 +33,7 @@ class ChatDetailAdapter :
         fun bind(item: Chat?) {
             item?.let {
                 if (it.isDeleted) binding.root.setBackgroundResource(R.drawable.deleted_message_background)
-                binding.message.text = it.message
+                binding.message.text = "${it.message} POSITION = $adapterPosition"
                 binding.date.text = it.time.getTimeAndDate()
             }
             currentData = item

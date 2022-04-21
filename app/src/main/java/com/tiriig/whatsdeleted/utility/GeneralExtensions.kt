@@ -6,9 +6,9 @@ import android.view.View
 fun String.isValidTitle(): Boolean {
     return when (this) {
         "WhatsApp" -> false
-        "Calling..." -> false
-        "Ringing.." -> false
-        "Deleting messages..." -> false
+        "Calling…" -> false
+        "Ringing…" -> false
+        "Deleting messages…" -> false
         "Ongoing voice call" -> false
         "WhatsApp Web" -> false
         "Finished backup" -> false
