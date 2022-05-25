@@ -25,7 +25,7 @@ fun Long.getTime(): String {
     val diffInMillisec: Long = currentDate!!.time - previousDate
     val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(diffInMillisec)
 
-    return if (diffInHours < 12) {
-        dateTime.subSequence(11, 19).toString()
-    } else "Yesterday"
+    return if (diffInHours < 12) dateTime.subSequence(11, 19).toString()
+    else if (diffInHours > 48) dateTime.subSequence(0, 10).toString()
+    else "Yesterday"
 }
