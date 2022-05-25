@@ -4,6 +4,7 @@ import android.text.format.DateFormat
 import java.math.BigInteger
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 fun Long.getTimeAndDate(): String {
     return DateFormat.format("MM-dd-yyyy  hh:mm aa", Date(this)).toString()
@@ -20,17 +21,11 @@ fun Long.getTime(): String {
     val currentDate = sdf.parse(sdf.format(Date()))
     val previousDate = this
 
-    //Check days between current time and message time
-    return when ((((currentDate!!.time - previousDate) / (1000 * 60 * 60 * 24)) + 1)) {
-        1L -> {
-            dateTime.subSequence(11,19).toString()
-        }
-        2L -> {
-            "Yesterday"
-        }
-        else -> {
-            dateTime.subSequence(0,10).toString()
-        }
-    }
+    //Check hours between current time and message time
+    val diffInMillisec: Long = currentDate!!.time - previousDate
+    val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(diffInMillisec)
 
+    return if (diffInHours < 12) {
+        dateTime.subSequence(11, 19).toString()
+    } else "Yesterday"
 }
