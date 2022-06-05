@@ -1,0 +1,10 @@
+package com.tiriig.whatsdeleted.utility
+
+object Constants {
+
+    const val chatList =
+        "[{\"id\":\"1\",\"isDeleted\":false,\"message\":\"Hi, How are you doing bro?\",\"time\":1653487941005,\"user\":\"Mohamed Jama\"},{\"id\":\"2\",\"isDeleted\":false,\"message\":\"Finished, check your email\",\"time\":1653487863000,\"user\":\"Kice smith\"},{\"id\":\"3\",\"isDeleted\":false,\"message\":\"\uD83D\uDCF7\",\"time\":1653475385000,\"user\":\"John twio\"},{\"id\":\"4\",\"isDeleted\":false,\"message\":\"Iska waran saaxiib, goorma ayaynu kulanaa\",\"time\":1653469148000,\"user\":\"Abdirahman\"},{\"id\":\"5\",\"isDeleted\":false,\"message\":\"Ayan: Sounds like a plan tomorrow at 9PM\",\"time\":1653424175000,\"user\":\"Project Startup \"},{\"id\":\"6\",\"isDeleted\":false,\"message\":\"Sumaya: I request from you to Bring a book and a pen\",\"time\":1653424175000,\"user\":\"Barkulanhub Members\"},{\"id\":\"7\",\"isDeleted\":false,\"message\":\"Which time we\\u0027ll meet tomorrow?\",\"time\":1653424175000,\"user\":\"Mohamed Kuwait\"},{\"id\":\"8\",\"isDeleted\":false,\"message\":\"Waan kuuso direy loga-dii wll\",\"time\":1653424175000,\"user\":\"Nimco Ali\"}]"
+
+    const val chatDetail =
+        "[{\"id\":\"1\",\"isDeleted\":false,\"message\":\"Finished, check your email\",\"time\":1653487863000,\"user\":\"Kice smith\"},{\"id\":\"1\",\"isDeleted\":true,\"message\":\"Can you please give me another one hour\",\"time\":1653487864000,\"user\":\"Kice smith\"},{\"id\":\"1\",\"isDeleted\":false,\"message\":\"Just give two hours to do it\",\"time\":1653475378485,\"user\":\"Kice smith\"},{\"id\":\"1\",\"isDeleted\":false,\"message\":\"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.\",\"time\":1653119352000,\"user\":\"Kice smith\"},{\"id\":\"1\",\"isDeleted\":false,\"message\":\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\\u0027s standard dummy text ever since the 1500s, when an unknown printer took a galley\",\"time\":1653412146000,\"user\":\"Kice smith\"}]"
+}
