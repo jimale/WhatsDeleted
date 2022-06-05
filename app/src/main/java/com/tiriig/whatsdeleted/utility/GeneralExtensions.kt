@@ -1,9 +1,9 @@
 package com.tiriig.whatsdeleted.utility
 
 import android.view.View
-import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.tiriig.whatsdeleted.data.model.Chat
 
 
 fun String.isValidTitle(): Boolean {
@@ -28,22 +28,16 @@ fun String.isValidTitle(): Boolean {
     }
 }
 
-fun View.hide(){
+fun View.hide() {
     visibility = View.GONE
 }
 
-fun View.show(){
+fun View.show() {
     visibility = View.VISIBLE
 }
 
 
-fun <T> String.fromJson(): List<T?>? {
-    val listType = object : TypeToken<List<T?>?>() {}.type
-    return Gson().fromJson<List<T?>>(this, listType)
-}
-
-@TypeConverter
-fun <T> List<T>.toJson(): String? {
-    val gson = Gson()
-    return gson.toJson(this)
+fun String.fromJson(): List<Chat?>? {
+    val listType = object : TypeToken<List<Chat?>?>() {}.type
+    return Gson().fromJson<List<Chat?>>(this, listType)
 }
