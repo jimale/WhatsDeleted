@@ -12,6 +12,10 @@
         android:theme="@style/Theme.SooCeliFariimaha">
         <activity
             android:name="com.tiriig.whatsdeleted.ui.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
