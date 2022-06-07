@@ -4,9 +4,8 @@
  ### Screenshots
  
  <p align="center">
- <img src="/screenshots/Screenshot_20220525_204010.png" width ="280"/>
- <img src="/screenshots/Screenshot_20220525_203624.png" width ="280"/>
- <img src="/screenshots/Screenshot_20220525_203152.png" width ="250"/>
+ <img src="/screenshots/one.png"/>
+
 </p>
 
 ### Download
