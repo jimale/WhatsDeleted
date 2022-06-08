@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+<!--        Bottom navigation bar icon color-->
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:navigationBarColor" >@color/white</item>
     </style>
 
     <!--    Splash Screen Theme-->
