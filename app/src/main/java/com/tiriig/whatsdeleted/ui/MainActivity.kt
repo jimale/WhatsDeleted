@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
     private fun showNotificationDialog(): AlertDialog {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle("Enable notification")
+        alertDialogBuilder.setCancelable(false)
         alertDialogBuilder.setMessage("Please enable notification access to use the app")
         alertDialogBuilder.setPositiveButton(
             "Yes"
