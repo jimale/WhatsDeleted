@@ -7,6 +7,6 @@
     <color name="blue">#BA94EF</color>
     <color name="white">#FF000000</color>
     <color name="red">#8D0B01</color>
-    <color name="message_bg">#252525</color>
+    <color name="message_bg">#282B2B</color>
     <color name="deleted_message">#614545</color>
 </resources>
