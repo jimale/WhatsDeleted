@@ -15,6 +15,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_chat" />
 
+    <TextView
+        android:id="@+id/emptyTv"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:text="@string/your_messages_will_appear_here"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
