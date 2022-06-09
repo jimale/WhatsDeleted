@@ -1,5 +1,5 @@
 # WhatsDeleted
- Recover WhatsApp deleted messages (Soo celi fariimaha WhatsApp ka ee la masaxey) 
+ Recover deleted WhatsApp messages (Soo celi fariimaha WhatsApp ka ee la masaxey) 
  
  ### Screenshots
  
