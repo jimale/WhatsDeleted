@@ -1,10 +1,12 @@
 package com.tiriig.whatsdeleted.services
 
+import android.app.Notification
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.utility.isValidTitle
 
 class NLService : NotificationListenerService() {
@@ -34,7 +36,6 @@ class NLService : NotificationListenerService() {
         super.onNotificationPosted(sbn)
         if (sbn != null && sbn.packageName == "com.whatsapp") {
             sendMessage(sbn)
-            handleDeletedMessage(sbn)
         }
     }
 
@@ -52,18 +53,11 @@ class NLService : NotificationListenerService() {
         if (title != null && title.isValidTitle()) {
             sendBroadcast(intent)
         }
-    }
 
-    private fun handleDeletedMessage(sbn: StatusBarNotification) {
-        val intent = Intent("com.tiriig.whatsdeleted")
-
-        val extras = sbn.notification.extras
-        val user = extras.getString("android.title")
-        val message = extras.getCharSequence("android.text").toString()
-
-        if (message == "This message was deleted"){
-            intent.putExtra("isDeleted",true)
-            intent.putExtra("title", user)
+        //Detect if message gets deleted
+        if (text == getString(R.string.deleted_message)) {
+            intent.putExtra("isDeleted", true)
+            intent.putExtra("title", title)
             sendBroadcast(intent)
         }
     }
