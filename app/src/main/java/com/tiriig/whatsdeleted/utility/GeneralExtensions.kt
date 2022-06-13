@@ -1,8 +1,13 @@
 package com.tiriig.whatsdeleted.utility
 
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
 
 
@@ -40,4 +45,12 @@ fun View.show() {
 fun String.fromJson(): List<Chat?>? {
     val listType = object : TypeToken<List<Chat?>?>() {}.type
     return Gson().fromJson<List<Chat?>>(this, listType)
+}
+
+fun ImageView.loadImage(url: Int){
+    Glide.with(this)
+        .load(url)
+        .placeholder(R.drawable.chat_user)
+        .transform(CircleCrop())
+        .into(this)
 }
