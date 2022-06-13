@@ -9,4 +9,4 @@
 </p>
 
 ### Download
-Go to the [Releases](https://github.com/jimale/WhatsDeteled/releases) to download the latest APK.
+Download the app [here](https://github.com/jimale/WhatsDeteled/releases/download/v1/WhatsDeleted.apk).
