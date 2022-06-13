@@ -1,4 +1,4 @@
-package com.tiriig.whatsdeleted.ui
+package com.tiriig.whatsdeleted.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

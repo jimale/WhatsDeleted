@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SooCeliFariimaha">
         <activity
-            android:name="com.tiriig.whatsdeleted.ui.MainActivity"
+            android:name="com.tiriig.whatsdeleted.ui.main.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.main.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>

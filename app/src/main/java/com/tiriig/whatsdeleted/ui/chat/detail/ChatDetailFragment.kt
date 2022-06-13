@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.tiriig.whatsdeleted.databinding.FragmentChatDetailBinding
-import com.tiriig.whatsdeleted.ui.MainActivity
+import com.tiriig.whatsdeleted.ui.main.MainActivity
 import com.tiriig.whatsdeleted.ui.chat.ChatViewModel
 import com.tiriig.whatsdeleted.utility.hide
 import dagger.hilt.android.AndroidEntryPoint

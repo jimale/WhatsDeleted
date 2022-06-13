@@ -9,7 +9,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.tiriig.whatsdeleted.R
-import com.tiriig.whatsdeleted.ui.MainActivity
+import com.tiriig.whatsdeleted.ui.main.MainActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
