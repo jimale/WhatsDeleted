@@ -12,6 +12,7 @@ import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
 import com.tiriig.whatsdeleted.databinding.ItemChatBinding
 import com.tiriig.whatsdeleted.utility.getTime
+import com.tiriig.whatsdeleted.utility.loadImage
 
 
 class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDiffCallback()) {
@@ -42,9 +43,11 @@ class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDi
         @SuppressLint("SetTextI18n")
         fun bind(item: Chat?) {
             item?.let {
-                binding.user.text = item.user
-                binding.lastMessage.text = item.message
-                binding.date.text = item.time.getTime()
+                binding.user.text = it.user
+                binding.lastMessage.text = it.message
+                binding.date.text = it.time.getTime()
+                if (it.isGroup) binding.image.loadImage(R.drawable.chat_group)
+                else binding.image.loadImage(R.drawable.chat_user)
             }
             currentData = item
         }

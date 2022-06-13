@@ -46,7 +46,7 @@ class NLServiceReceiver : BroadcastReceiver() {
                 //Split the group if displays the number of unread messages
                 if (group.endsWith("messages)")) group = group.split(" (")[0]
 
-                val groupChat = Chat(id, group, "$user:$text", time)
+                val groupChat = Chat(id, group, "$user: $text", time, isGroup = true)
                 if (text.isValidTitle()) repository.saveMessage(groupChat)
             } else{
                 if (title.isValidTitle()) repository.saveMessage(chat)
