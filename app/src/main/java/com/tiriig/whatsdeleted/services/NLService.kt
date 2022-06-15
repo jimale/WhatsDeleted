@@ -1,11 +1,11 @@
 package com.tiriig.whatsdeleted.services
 
-import android.app.Notification
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import com.tiriig.whatsdeleted.BuildConfig
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.utility.isValidTitle
 
@@ -20,7 +20,13 @@ class NLService : NotificationListenerService() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(NLServiceReceiver())
+        try {
+            unregisterReceiver(NLServiceReceiver())
+        } catch (e: IllegalArgumentException) {
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace()
+            }
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
