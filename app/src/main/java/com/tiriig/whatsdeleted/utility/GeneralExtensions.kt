@@ -1,17 +1,18 @@
 package com.tiriig.whatsdeleted.utility
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
-import com.tiriig.whatsdeleted.data.model.DeletedMessage
+import com.tiriig.whatsdeleted.ui.intro.MyAppIntro
 
 
 fun String.isValidTitle(): Boolean {
@@ -60,4 +61,10 @@ fun ImageView.loadImage(url: Int){
 
 fun Fragment.toast(message: String){
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun <T> Activity.startActivity(activity: Class<T>) {
+    startActivity(Intent(this, activity))
+    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    finish()
 }
