@@ -2,6 +2,10 @@ package com.tiriig.whatsdeleted.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.github.appintro.AppIntro
+import com.tiriig.whatsdeleted.ui.intro.MyAppIntro
+import com.tiriig.whatsdeleted.utility.isFinishedIntro
+import com.tiriig.whatsdeleted.utility.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -9,13 +13,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        startMainActivity()
+        val isFinished = isFinishedIntro()
+        if (isFinished) startActivity(MainActivity::class.java)
+        else startActivity(MyAppIntro::class.java)
     }
-
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        finish()
-    }
-
 }

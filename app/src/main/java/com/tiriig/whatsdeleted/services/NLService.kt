@@ -11,22 +11,13 @@ import com.tiriig.whatsdeleted.utility.isValidTitle
 
 class NLService : NotificationListenerService() {
 
+    private val nlServiceReceiver = NLServiceReceiver()
+
     override fun onCreate() {
         super.onCreate()
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.tiriig.whatsdeleted")
-        registerReceiver(NLServiceReceiver(), intentFilter)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            unregisterReceiver(NLServiceReceiver())
-        } catch (e: IllegalArgumentException) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace()
-            }
-        }
+        registerReceiver(nlServiceReceiver, intentFilter)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -65,6 +56,17 @@ class NLService : NotificationListenerService() {
             intent.putExtra("isDeleted", true)
             intent.putExtra("title", title)
             sendBroadcast(intent)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            unregisterReceiver(nlServiceReceiver)
+        } catch (e: IllegalArgumentException) {
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace()
+            }
         }
     }
 }

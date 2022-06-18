@@ -6,4 +6,12 @@
     <string name="user_image">User image</string>
     <string name="your_messages_will_appear_here">Your Messages will appear here</string>
     <string name="deleted_message">This message was deleted</string>
+    <string name="welcome">Welcome</string>
+    <string name="intro_text_one">WhatsDeleted will allow you to recover deleted WhatsApp messages by reading your notifications</string>
+    <string name="notice">Notice</string>
+    <string name="intro_text_two">If you have silenced a chat or watching it when the message gets deleted, you will not receive a notification so WhatsDeleted can\'t help in this case. \n \n WhatsDeleted can\'t recover messages that have been deleted before you installed this app.</string>
+    <string name="setup">Setup</string>
+    <string name="notification_notice">This allow the app to backup your notifications and messages in case they are deleted</string>
+    <string name="notification_reader">Notification reader</string>
+    <string name="enable">Enable</string>
 </resources>

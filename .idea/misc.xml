@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../Android/Sdk/caches/transforms-3/b778999d17e74cc61d7acd188e7ec176/transformed/jetified-AppIntro-6.2.0/res/layout/appintro_intro_layout.xml" value="0.32461538461538464" />
+        <entry key="../../Android/Sdk/caches/transforms-3/b778999d17e74cc61d7acd188e7ec176/transformed/jetified-AppIntro-6.2.0/res/layout/appintro_intro_layout2.xml" value="0.3296875" />
         <entry key="app/src/main/res/drawable-v24/message_background.xml" value="0.22" />
         <entry key="app/src/main/res/drawable-v24/startup_logo.xml" value="0.162" />
         <entry key="app/src/main/res/drawable/deleted_message_background.xml" value="0.2835" />
@@ -13,11 +15,16 @@
         <entry key="app/src/main/res/drawable/startup_logo.xml" value="0.162" />
         <entry key="app/src/main/res/layout/activity_chat_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31354166666666666" />
+        <entry key="app/src/main/res/layout/fragment_Intro_permission.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/fragment_chat_detail.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/layout/fragment_chat_list.xml" value="0.32916666666666666" />
+        <entry key="app/src/main/res/layout/fragment_intro_permission.xml" value="0.32916666666666666" />
+        <entry key="app/src/main/res/layout/intro_layout_one.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/intro_layout_two.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/item_chat.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.162" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.128" />
       </map>
     </option>
   </component>

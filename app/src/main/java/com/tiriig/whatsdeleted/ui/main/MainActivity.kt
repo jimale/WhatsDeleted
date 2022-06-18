@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var enableNotificationDialog: AlertDialog? = null
     private lateinit var navHost: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +34,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpMain() {
-        // If the user did not turn the notification listener service on we prompt him to do so
-        if (!isNotificationServiceEnabled()) {
-            enableNotificationDialog = showNotificationDialog()
-            enableNotificationDialog!!.show()
-        }
         //Start the service
         val intent = Intent(applicationContext, NLService::class.java)
         startService(intent)
@@ -54,42 +48,6 @@ class MainActivity : AppCompatActivity() {
         val user = intent.getStringExtra("user")
         if (isNotificationClicked) navHost.findNavController()
             .navigate(R.id.chatDetailFragment, bundleOf("user" to user))
-    }
-
-    private fun isNotificationServiceEnabled(): Boolean {
-        val pkgName = packageName
-        val flat: String? = Settings.Secure.getString(
-            contentResolver,
-            "enabled_notification_listeners"
-        )
-        flat?.let {
-            val names = flat.split(":").toTypedArray()
-            for (i in names.indices) {
-                val cn = ComponentName.unflattenFromString(names[i])
-                if (cn != null) {
-                    if (TextUtils.equals(pkgName, cn.packageName)) {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-
-    private fun showNotificationDialog(): AlertDialog {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle("Enable notification")
-        alertDialogBuilder.setCancelable(false)
-        alertDialogBuilder.setMessage("Please enable notification access to use the app")
-        alertDialogBuilder.setPositiveButton(
-            "Yes"
-        ) { _, _ -> startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")) }
-        alertDialogBuilder.setNegativeButton(
-            "No"
-        ) { _, _ ->
-            finish()
-        }
-        return alertDialogBuilder.create()
     }
 
     private fun navigateToChatDetail() {

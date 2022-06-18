@@ -1,6 +1,7 @@
 package com.tiriig.whatsdeleted.utility
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
@@ -67,4 +68,15 @@ fun <T> Activity.startActivity(activity: Class<T>) {
     startActivity(Intent(this, activity))
     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     finish()
+}
+
+fun Context.finishedIntro() {
+    val editor = this.getSharedPreferences("DATA_STORE", Context.MODE_PRIVATE).edit()
+    editor.putBoolean("finishedIntro", true)
+    editor.apply()
+}
+
+fun Context.isFinishedIntro(): Boolean {
+    val sharedPref = this.getSharedPreferences("DATA_STORE", Context.MODE_PRIVATE)
+    return sharedPref.getBoolean("finishedIntro", false)
 }

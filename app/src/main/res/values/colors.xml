@@ -8,7 +8,11 @@
     <color name="blue">#062E93</color>
     <color name="link_color">#3C72FB</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_only">#FFFFFFFF</color>
     <color name="red">#8D0B01</color>
+    <color name="red_002">#500904</color>
+    <color name="intro_two">#121E3E</color>
+    <color name="intro_three">#3A0303</color>
     <color name="message_bg">#FFFFFFFF</color>
     <color name="deleted_message">#FCBDBD</color>
     <color name="icon_color">#1BAC4F</color>
