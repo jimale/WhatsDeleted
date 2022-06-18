@@ -2,6 +2,8 @@ package com.tiriig.whatsdeleted.utility
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -9,6 +11,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
+import com.tiriig.whatsdeleted.data.model.DeletedMessage
 
 
 fun String.isValidTitle(): Boolean {
@@ -53,4 +56,8 @@ fun ImageView.loadImage(url: Int){
         .placeholder(R.drawable.chat_user)
         .transform(CircleCrop())
         .into(this)
+}
+
+fun Fragment.toast(message: String){
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
