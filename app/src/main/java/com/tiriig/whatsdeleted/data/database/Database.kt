@@ -11,7 +11,6 @@ import com.tiriig.whatsdeleted.data.model.Chat
     exportSchema = true
 )
 
-@TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun userDao(): UserDao
 }
