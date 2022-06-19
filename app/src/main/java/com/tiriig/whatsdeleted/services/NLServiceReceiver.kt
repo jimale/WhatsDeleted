@@ -3,7 +3,6 @@ package com.tiriig.whatsdeleted.services
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.tiriig.whatsdeleted.data.model.Chat

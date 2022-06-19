@@ -9,11 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.tiriig.whatsdeleted.R
-import com.tiriig.whatsdeleted.data.model.Chat
-import com.tiriig.whatsdeleted.ui.intro.MyAppIntro
 
 
 fun String.isValidTitle(): Boolean {
@@ -47,10 +43,10 @@ fun View.show() {
 }
 
 
-fun String.fromJson(): List<Chat?>? {
-    val listType = object : TypeToken<List<Chat?>?>() {}.type
-    return Gson().fromJson<List<Chat?>>(this, listType)
-}
+//fun String.fromJson(): List<Chat?>? {
+//    val listType = object : TypeToken<List<Chat?>?>() {}.type
+//    return Gson().fromJson<List<Chat?>>(this, listType)
+//}
 
 fun ImageView.loadImage(url: Int){
     Glide.with(this)

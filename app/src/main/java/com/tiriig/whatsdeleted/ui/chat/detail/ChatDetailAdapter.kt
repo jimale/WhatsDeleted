@@ -1,7 +1,6 @@
 package com.tiriig.whatsdeleted.ui.chat.detail
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

@@ -1,11 +1,7 @@
 package com.tiriig.whatsdeleted.ui.main
 
-import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
-import android.text.TextUtils
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController

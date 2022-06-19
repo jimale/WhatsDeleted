@@ -8,16 +8,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.github.appintro.SlidePolicy
-import com.tiriig.whatsdeleted.databinding.FragmentChatListBinding
 import com.tiriig.whatsdeleted.databinding.FragmentIntroPermissionBinding
-import com.tiriig.whatsdeleted.ui.chat.ChatViewModel
 import com.tiriig.whatsdeleted.utility.hide
-import com.tiriig.whatsdeleted.utility.show
 import com.tiriig.whatsdeleted.utility.toast
 import dagger.hilt.android.AndroidEntryPoint
 

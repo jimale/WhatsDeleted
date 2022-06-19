@@ -14,12 +14,6 @@ class ChatViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    fun saveMessage(chat: Chat) {
-        viewModelScope.launch {
-            repository.saveMessage(chat)
-        }
-    }
-
     val getChatList: LiveData<List<Chat>> = liveData {
         val response = repository.fetchChats()
         emitSource(response)
