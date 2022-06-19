@@ -41,6 +41,11 @@
                 android:name="android.service.notification.disabled_filter_types"
                 android:value="ongoing|silent" />
         </service>
+
+<!--        Disable Crashlytics collection-->
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
     </application>
 
 </manifest>
