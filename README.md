@@ -1,12 +1,25 @@
 # WhatsDeleted
- Recover deleted WhatsApp messages (Soo celi fariimaha WhatsApp ka ee la masaxey) 
- 
- ### Screenshots
- 
+**WhatsDeleted** recovers deleted WhatsApp messages by scanning your device notifications, You can also read your messages and chat anonymously.
+
+### Screenshots
+
  <p align="center">
  <img src="/screenshots/one.png"/>
 
 </p>
 
-### Download
-Download the app [here](https://github.com/jimale/WhatsDeteled/releases/download/v1/WhatsDeleted.apk).
+## Download :
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+alt="Get it on Google Play"
+height="100">](https://play.google.com/store/apps/details?id=com.tiriig.whatsdeleted)
+
+
+## Features :
+
+-   Recover deleted WhatsApp messages
+-   Read your messages and chat anonymously
+-   ... more to come in the near future
+
+## Target platforms :
+
+API 21 or later
