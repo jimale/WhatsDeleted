@@ -38,19 +38,14 @@ class MainActivity : AppCompatActivity() {
         navHost =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         setupActionBarWithNavController(navHost.navController)
-
-        //Handling notification click
-        val isNotificationClicked = intent.getBooleanExtra("notification", false)
-        val user = intent.getStringExtra("user")
-        if (isNotificationClicked) navHost.findNavController()
-            .navigate(R.id.chatDetailFragment, bundleOf("user" to user))
     }
 
     private fun navigateToChatDetail() {
         val notiDeleted = intent.getBooleanExtra("notificationDeleted", false)
         val user = intent.getStringExtra("user")
+        val app = intent.getStringExtra("app")
         if (notiDeleted) navHost.findNavController()
-            .navigate(R.id.chatDetailFragment, bundleOf("user" to user))
+            .navigate(R.id.chatDetailFragment, bundleOf("user" to user, "app" to app))
     }
 
     override fun onSupportNavigateUp(): Boolean {

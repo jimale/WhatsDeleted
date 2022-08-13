@@ -14,11 +14,11 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(data: Chat)
 
-    @Query("SELECT * from chat group by user order by MAX(time) DESC")
+    @Query("SELECT * from chat group by user,app order by MAX(time) DESC")
     fun getChats(): LiveData<List<Chat>>
 
-    @Query("SELECT * from chat where user =:user order by time DESC")
-    fun getMessagesByUser(user: String): LiveData<List<Chat>>
+    @Query("SELECT * from chat where user =:user and app = :app order by time DESC")
+    fun getMessagesByUser(user: String,app: String): LiveData<List<Chat>>
 
     @Query("SELECT id,message,isDeleted from chat where user =:user order by time DESC LIMIT 1")
     fun getLastMessage(user: String): DeletedMessage?

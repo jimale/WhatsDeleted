@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/drawable/ic_app_icon.xml" value="0.162" />
         <entry key="app/src/main/res/drawable/ic_delete_24.xml" value="0.2835" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2835" />
-        <entry key="app/src/main/res/drawable/message_background.xml" value="0.2835" />
+        <entry key="app/src/main/res/drawable/message_background.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/startup_logo.xml" value="0.162" />
         <entry key="app/src/main/res/layout/activity_chat_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31354166666666666" />
@@ -21,7 +21,7 @@
         <entry key="app/src/main/res/layout/fragment_intro_permission.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/layout/intro_layout_one.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/intro_layout_two.xml" value="0.3296875" />
-        <entry key="app/src/main/res/layout/item_chat.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_chat.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.162" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.128" />

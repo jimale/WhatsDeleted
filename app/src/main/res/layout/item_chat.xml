@@ -10,6 +10,7 @@
         android:id="@+id/image"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="4dp"
         android:contentDescription="@string/user_image"
         android:src="@drawable/chat_user"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +40,8 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="5dp"
         android:ellipsize="end"
-        android:textColor="@color/grey"
         android:maxLines="1"
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toBottomOf="@id/user"
@@ -52,12 +53,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/link_color"
         android:textSize="13sp"
-        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="02-02-2020" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/fromApp"
+        style="@style/ThinnerChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white_only"
+        app:chipBackgroundColor="@color/whatsapp"
+        app:chipMinTouchTargetSize="32dp"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/last_message"
+        tools:text="WhatsApp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

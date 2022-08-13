@@ -17,9 +17,10 @@ import kotlin.random.Random
 
 @Singleton
 class Notifications @Inject constructor(@ApplicationContext private val context: Context) {
-    fun notify(user: String, title: String, message: String) {
+    fun notify(user: String, title: String, message: String,app: String) {
         val intent = Intent(context, MainActivity::class.java)
         intent.putExtra("user", user)
+        intent.putExtra("app", app)
         intent.putExtra("notificationDeleted", true)
 
         //create pending flag based on OS version

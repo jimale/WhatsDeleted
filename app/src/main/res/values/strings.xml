@@ -6,6 +6,7 @@
     <string name="user_image">User image</string>
     <string name="your_messages_will_appear_here">Your Messages will appear here</string>
     <string name="deleted_message">This message was deleted</string>
+    <string name="signal_deleted_message">This message was deleted.</string>
     <string name="welcome">Welcome</string>
     <string name="intro_text_one">WhatsDeleted will allow you to recover deleted WhatsApp messages by reading your notifications</string>
     <string name="notice">Notice</string>

@@ -35,9 +35,9 @@ class ChatRepository @Inject constructor(
         }
     }
 
-    suspend fun fetchMessagesByUser(user: String): LiveData<List<Chat>> {
+    suspend fun fetchMessagesByUser(user: String,app: String): LiveData<List<Chat>> {
         return withContext(Dispatchers.IO) {
-            database.userDao().getMessagesByUser(user)
+            database.userDao().getMessagesByUser(user,app)
         }
     }
 

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.google.android.material.chip.Chip
 import com.tiriig.whatsdeleted.R
 
 
@@ -30,7 +31,29 @@ fun String.isValidTitle(): Boolean {
         "Tap for more info" -> false
         "Waiting for Wi-Fi" -> false
         "This message was deleted" -> false
+        "This message was deleted." -> false
         else -> true
+    }
+}
+
+fun String.isValidApp(): Boolean {
+    return when (this) {
+        "com.whatsapp" -> true
+        "com.whatsapp.w4b" -> true
+        "org.thoughtcrime.securesms" -> true
+        "org.telegram.messenger" -> true
+        else -> false
+    }
+}
+
+
+fun String.name(): String {
+    return when (this) {
+        "com.whatsapp" -> "WhatsApp"
+        "com.whatsapp.w4b" -> "WhatsApp business"
+        "org.thoughtcrime.securesms" -> "Signal"
+        "org.telegram.messenger" -> "Telegram"
+        else -> "Undefined"
     }
 }
 
@@ -48,7 +71,7 @@ fun View.show() {
 //    return Gson().fromJson<List<Chat?>>(this, listType)
 //}
 
-fun ImageView.loadImage(url: Int){
+fun ImageView.loadImage(url: Int) {
     Glide.with(this)
         .load(url)
         .placeholder(R.drawable.chat_user)
@@ -56,7 +79,7 @@ fun ImageView.loadImage(url: Int){
         .into(this)
 }
 
-fun Fragment.toast(message: String){
+fun Fragment.toast(message: String) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
@@ -75,4 +98,13 @@ fun Context.finishedIntro() {
 fun Context.isFinishedIntro(): Boolean {
     val sharedPref = this.getSharedPreferences("DATA_STORE", Context.MODE_PRIVATE)
     return sharedPref.getBoolean("finishedIntro", false)
+}
+
+fun Chip.changeBackgroundColor(app: String) {
+    when (app) {
+        "com.whatsapp" -> setChipBackgroundColorResource(R.color.whatsapp)
+        "com.whatsapp.w4b" -> setChipBackgroundColorResource(R.color.whatsapp_business)
+        "org.thoughtcrime.securesms" -> setChipBackgroundColorResource(R.color.signal)
+        "org.telegram.messenger" -> setChipBackgroundColorResource(R.color.telegram)
+    }
 }

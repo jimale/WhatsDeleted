@@ -36,9 +36,10 @@ class NLServiceReceiver : BroadcastReceiver() {
         val title = intent.getStringExtra("title") ?: ""
         val text = intent.getStringExtra("text") ?: ""
         val time = intent.getLongExtra("time", 0)
+        val app = intent.getStringExtra("app") ?: ""
         val id = getRandomNum()
 
-        val chat = Chat(id, title, text, time)
+        val chat = Chat(id, title, text, time, app)
         applicationScope.launch {
             //check if the message is from Group chat
             if (title.contains("messages") || title.contains(":")) {
@@ -48,7 +49,7 @@ class NLServiceReceiver : BroadcastReceiver() {
                 //Split the group if displays the number of unread messages
                 if (group.endsWith("messages)")) group = group.split(" (")[0]
 
-                val groupChat = Chat(id, group, "$user: $text", time, isGroup = true)
+                val groupChat = Chat(id, group, "$user: $text", time, app, isGroup = true)
                 if (text.isValidTitle()) repository.saveMessage(groupChat)
             } else {
                 if (title.isValidTitle()) repository.saveMessage(chat)
@@ -59,6 +60,7 @@ class NLServiceReceiver : BroadcastReceiver() {
     private fun notifyDeletedMessage(intent: Intent) {
         val isDelete = intent.getBooleanExtra("isDeleted", false)
         val title = intent.getStringExtra("title") ?: ""
+        val app = intent.getStringExtra("app") ?: ""
 
         if (isDelete) {
             applicationScope.launch {
@@ -66,7 +68,7 @@ class NLServiceReceiver : BroadcastReceiver() {
                 lastMessage?.let {
                     if (!lastMessage.isDeleted) {
                         //if the message is deleted notify the user and change delete state to deleted
-                        notifications.notify(title, "$title deleted a message", "Click here to see")
+                        notifications.notify(title, "$title deleted a message", "Click here to see",app)
                         repository.messageIsDeleted(lastMessage.id)
                     }
                 }

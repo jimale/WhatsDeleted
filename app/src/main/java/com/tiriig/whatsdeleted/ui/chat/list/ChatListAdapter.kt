@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
 import com.tiriig.whatsdeleted.databinding.ItemChatBinding
+import com.tiriig.whatsdeleted.utility.changeBackgroundColor
 import com.tiriig.whatsdeleted.utility.getTime
 import com.tiriig.whatsdeleted.utility.loadImage
+import com.tiriig.whatsdeleted.utility.name
 
 
 class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDiffCallback()) {
@@ -35,7 +37,7 @@ class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDi
             binding.root.setOnClickListener {
                 it.findNavController().navigate(
                     R.id.chatDetailFragment,
-                    bundleOf("user" to currentData?.user)
+                    bundleOf("user" to currentData?.user,"app" to currentData?.app)
                 )
             }
         }
@@ -44,6 +46,9 @@ class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDi
         fun bind(item: Chat?) {
             item?.let {
                 binding.user.text = it.user
+                binding.fromApp.text = it.app.name()
+                //Change chip background color based on app
+                binding.fromApp.changeBackgroundColor(it.app)
                 binding.lastMessage.text = it.message
                 binding.date.text = it.time.getTime()
                 if (it.isGroup) binding.image.loadImage(R.drawable.chat_group)

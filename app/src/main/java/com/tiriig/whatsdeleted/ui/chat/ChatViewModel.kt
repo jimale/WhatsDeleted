@@ -21,7 +21,8 @@ class ChatViewModel @Inject constructor(
 
     val getChatByUser: LiveData<List<Chat>> = liveData {
         val user = savedStateHandle.get<String>("user") ?: ""
-        val response = repository.fetchMessagesByUser(user)
+        val app = savedStateHandle.get<String>("app") ?: ""
+        val response = repository.fetchMessagesByUser(user,app)
         emitSource(response)
     }
 }
