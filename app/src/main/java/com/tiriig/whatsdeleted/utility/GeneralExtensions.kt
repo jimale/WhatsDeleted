@@ -17,6 +17,8 @@ fun String.isValidTitle(): Boolean {
     return when (this) {
         "" -> false
         "WhatsApp" -> false
+        "Telegram" -> false
+        "Signal" -> false
         "Calling…" -> false
         "Ringing…" -> false
         "Deleting messages…" -> false
