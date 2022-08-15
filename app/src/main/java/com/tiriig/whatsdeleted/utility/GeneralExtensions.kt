@@ -104,11 +104,12 @@ fun Context.isFinishedIntro(): Boolean {
     return sharedPref.getBoolean("finishedIntro", false)
 }
 
-fun Chip.changeBackgroundColor(app: String) {
+fun Chip.changeBackgroundColor(app: String?) {
     when (app) {
         "com.whatsapp" -> setChipBackgroundColorResource(R.color.whatsapp)
         "com.whatsapp.w4b" -> setChipBackgroundColorResource(R.color.whatsapp_business)
         "org.thoughtcrime.securesms" -> setChipBackgroundColorResource(R.color.signal)
         "org.telegram.messenger" -> setChipBackgroundColorResource(R.color.telegram)
+        else -> this.hide()
     }
 }
