@@ -18,6 +18,8 @@ fun String.isValidTitle(): Boolean {
         "" -> false
         "WhatsApp" -> false
         "Telegram" -> false
+        "DiscussBot" -> false
+        "Checking for messages…" -> false
         "Signal" -> false
         "Calling…" -> false
         "Ringing…" -> false
