@@ -20,7 +20,7 @@ interface UserDao {
     @Query("SELECT * from chat where user =:user and app = :app order by time DESC")
     fun getMessagesByUser(user: String,app: String): LiveData<List<Chat>>
 
-    @Query("SELECT id,message,isDeleted from chat where user =:user order by time DESC LIMIT 1")
+    @Query("SELECT id,message,isDeleted,time from chat where user =:user order by time DESC LIMIT 1")
     fun getLastMessage(user: String): DeletedMessage?
 
     @Query("UPDATE chat set isDeleted =1 where id =:id")
