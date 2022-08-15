@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_500">#031916</color>
+    <color name="purple_500">#1f2c34</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FFFFFFFF</color>
@@ -8,6 +8,9 @@
     <color name="grey">#E1CACACA</color>
     <color name="white">#FF000000</color>
     <color name="red">#8D0B01</color>
-    <color name="message_bg">#282B2B</color>
+    <color name="message_bg">#1f2c34</color>
     <color name="deleted_message">#614545</color>
+    <color name="toolbar">#1f2c34</color>
+    <color name="chat_list">#131c23</color>
+    <color name="ripple">#3C3C3C</color>
 </resources>

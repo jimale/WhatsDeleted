@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpMain() {
+        setSupportActionBar(binding.toolbar)
         //Start the service
         val intent = Intent(applicationContext, NLService::class.java)
         startService(intent)

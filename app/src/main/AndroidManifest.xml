@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SooCeliFariimaha">
+        android:theme="@style/Theme.WhatsDeleted">
         <activity
             android:name="com.tiriig.whatsdeleted.ui.main.MainActivity"
             android:exported="true" />
@@ -47,5 +47,4 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
     </application>
-
 </manifest>
