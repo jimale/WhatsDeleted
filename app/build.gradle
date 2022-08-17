@@ -63,7 +63,7 @@ dependencies {
 
 
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:'
@@ -71,7 +71,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Fragment Ktx
-    implementation "androidx.fragment:fragment-ktx:1.5.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
 
     //Hilt
     implementation('com.google.dagger:hilt-android:2.43.2')
