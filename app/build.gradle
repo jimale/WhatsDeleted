@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     buildFeatures {
         viewBinding  true
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.tiriig.whatsdeleted"
         minSdk 21
-        targetSdk 31
+        targetSdk 32
         versionCode 2
         versionName "1.2.0"
 
