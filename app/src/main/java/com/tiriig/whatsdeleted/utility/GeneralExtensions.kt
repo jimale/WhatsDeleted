@@ -105,6 +105,7 @@ fun Context.isFinishedIntro(): Boolean {
 }
 
 fun Chip.changeBackgroundColor(app: String?) {
+    this.show()
     when (app) {
         "com.whatsapp" -> setChipBackgroundColorResource(R.color.whatsapp)
         "com.whatsapp.w4b" -> setChipBackgroundColorResource(R.color.whatsapp_business)
