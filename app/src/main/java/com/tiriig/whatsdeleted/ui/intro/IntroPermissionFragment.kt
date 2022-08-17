@@ -12,12 +12,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.appintro.SlidePolicy
 import com.tiriig.whatsdeleted.databinding.FragmentIntroPermissionBinding
+import com.tiriig.whatsdeleted.ui.main.MainActivity
+import com.tiriig.whatsdeleted.utility.finishedIntro
 import com.tiriig.whatsdeleted.utility.hide
+import com.tiriig.whatsdeleted.utility.startActivity
 import com.tiriig.whatsdeleted.utility.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class IntroPermissionFragment : Fragment() , SlidePolicy {
+class IntroPermissionFragment : Fragment(), SlidePolicy {
 
     private var _binding: FragmentIntroPermissionBinding? = null
     private val binding get() = _binding!!
@@ -47,7 +50,11 @@ class IntroPermissionFragment : Fragment() , SlidePolicy {
 
     override fun onResume() {
         super.onResume()
-        if (isPolicyRespected) binding.enableBtn.hide()
+        if (isPolicyRespected) {
+            binding.enableBtn.hide()
+            requireActivity().startActivity(MainActivity::class.java)
+            requireActivity().finishedIntro()
+        }
     }
 
     private fun isNotificationServiceEnabled(): Boolean {
