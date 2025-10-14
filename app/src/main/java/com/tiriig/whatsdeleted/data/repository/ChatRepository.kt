@@ -21,7 +21,7 @@ class ChatRepository @Inject constructor(
                 //fetch last message and make comparison to avoid duplicates
                 val lastMessage = database.userDao().getLastMessage(chat.user)
                 if (lastMessage != null) {
-                    if (chat.message != lastMessage.message && chat.time != lastMessage.time) database.userDao().save(chat)
+                    if (chat.message != lastMessage.message && chat.dateTime != lastMessage.dateTime) database.userDao().save(chat)
                 } else {
                     database.userDao().save(chat)
                 }

@@ -6,8 +6,42 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-fun Long.getTimeAndDate(): String {
-    return DateFormat.format("MM-dd-yyyy  hh:mm aa", Date(this)).toString()
+fun Long.formatDate(): String {
+    val calendar = Calendar.getInstance()
+    val currentDate = calendar.timeInMillis
+
+    // Check if it's today
+    val todayStart = calendar.apply {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.timeInMillis
+
+    // Check if it's yesterday
+    val yesterdayStart = calendar.apply {
+        add(Calendar.DATE, -1)
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.timeInMillis
+
+    return when {
+        this >= todayStart && this < currentDate -> "Today"
+        this >= yesterdayStart && this < todayStart -> "Yesterday"
+        else -> {
+            // If before yesterday, format date as "dd MMM yyyy"
+            val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+            dateFormat.format(Date(this))
+        }
+    }
+}
+
+
+fun Long.formatTime(): String {
+    val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+    return timeFormat.format(Date(this))
 }
 
 fun getRandomNum(): String {

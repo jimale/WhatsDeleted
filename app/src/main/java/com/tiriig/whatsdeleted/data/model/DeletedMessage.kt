@@ -7,5 +7,5 @@ data class DeletedMessage(
     val id: String ="0",
     val message: String = "",
     val isDeleted: Boolean = false,
-    val time: Long,
+    val dateTime: Long,
 )

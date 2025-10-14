@@ -50,7 +50,7 @@ class ChatListAdapter : ListAdapter<Chat, ChatListAdapter.ViewHolder>(ChatListDi
                 //Change chip background color based on app
                 binding.fromApp.changeBackgroundColor(it.app)
                 binding.lastMessage.text = it.message
-                binding.date.text = it.time.getTime()
+                binding.date.text = it.dateTime.getTime()
                 if (it.isGroup) binding.image.loadImage(R.drawable.chat_group)
                 else binding.image.loadImage(R.drawable.chat_user)
             }

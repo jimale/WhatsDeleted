@@ -12,7 +12,7 @@ data class Chat(
     val id: String,
     val user: String,
     val message: String,
-    val time: Long,
+    val dateTime: Long,
     @ColumnInfo(defaultValue = "")
     val app: String,
     val isDeleted: Boolean = false,
