@@ -1,77 +1,85 @@
 package com.tiriig.whatsdeleted.services
 
 import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
-import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import androidx.core.content.ContextCompat
-import com.tiriig.whatsdeleted.BuildConfig
-import com.tiriig.whatsdeleted.R
+import com.tiriig.whatsdeleted.data.model.Chat
+import com.tiriig.whatsdeleted.data.repository.ChatRepository
+import com.tiriig.whatsdeleted.utility.getRandomNum
 import com.tiriig.whatsdeleted.utility.isValidApp
 import com.tiriig.whatsdeleted.utility.isValidTitle
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NLService : NotificationListenerService() {
 
-    private val nlServiceReceiver = NLServiceReceiver()
+    @Inject
+    lateinit var repository: ChatRepository
 
-    override fun onCreate() {
-        super.onCreate()
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.tiriig.whatsdeleted")
-        ContextCompat.registerReceiver(this, nlServiceReceiver, intentFilter, ContextCompat.RECEIVER_EXPORTED)
-    }
+    // This scope is tied to the service's lifecycle and uses a background thread.
+    // A SupervisorJob ensures that if one child coroutine fails, the others are not cancelled.
+    private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // Return STICKY to prevent the automatic service termination
+        // Return STICKY to ensure the service restarts if the system kills it.
         return START_STICKY
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return super.onBind(intent)
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
+        // Filter for valid notifications from the apps you support.
         if (sbn != null && sbn.packageName.isValidApp()) {
-            sendMessage(sbn)
+            processNotification(sbn)
         }
     }
 
-    private fun sendMessage(sbn: StatusBarNotification) {
-        val intent = Intent("com.tiriig.whatsdeleted")
-
+    private fun processNotification(sbn: StatusBarNotification) {
         val extras = sbn.notification.extras
-        val title = extras.getString("android.title")
-        val text = extras.getCharSequence("android.text").toString()
+        val title = extras.getString("android.title") ?: return
+        val text = extras.getCharSequence("android.text")?.toString() ?: ""
+        val time = sbn.notification.`when`
         val app = sbn.packageName
 
-        intent.putExtra("time", sbn.notification.`when`)
-        intent.putExtra("title", title)
-        intent.putExtra("text", text)
-        intent.putExtra("app", app)
+        // Ignore notifications with invalid titles or empty text (e.g., "Checking for new messages")
+        if (!title.isValidTitle() || text.isEmpty()) return
 
-        if (title != null && title.isValidTitle()) {
-            sendBroadcast(intent)
+        // Launch a coroutine on our background-threaded scope to do the heavy lifting.
+        serviceScope.launch {
+            saveNewMessage(title, text, time, app)
         }
+    }
 
-        //Detect if message gets deleted
-        if (text == getString(R.string.deleted_message) || text == getString(R.string.signal_deleted_message)) {
-            intent.putExtra("isDeleted", true)
-            intent.putExtra("title", title)
-            sendBroadcast(intent)
+    private suspend fun saveNewMessage(title: String, text: String, time: Long, app: String) {
+        val id = getRandomNum()
+
+        if (title.contains(":")) {
+            // Assumes "GroupName: SenderName" format
+            var groupName = title.substringBefore(":")
+            val senderName = title.substringAfter(": ").trim()
+
+            // Clean up group name if it contains message counts (e.g., "My Group (2 messages)")
+            if (groupName.contains("(")) {
+                groupName = groupName.substringBefore("(").trim()
+            }
+
+            val groupChat = Chat(id, groupName, "$senderName: $text", time, app, isGroup = true)
+            repository.saveMessage(groupChat)
+        } else {
+            // Standard direct message
+            val chat = Chat(id, title, text, time, app)
+            repository.saveMessage(chat)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        try {
-            unregisterReceiver(nlServiceReceiver)
-        } catch (e: IllegalArgumentException) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace()
-            }
-        }
+        // Cancelling this is crucial to prevent memory leaks by stopping all ongoing coroutines
+        serviceScope.cancel()
     }
 }
