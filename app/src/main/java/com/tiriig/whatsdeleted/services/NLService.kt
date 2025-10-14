@@ -2,9 +2,11 @@ package com.tiriig.whatsdeleted.services
 
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.core.content.ContextCompat
 import com.tiriig.whatsdeleted.BuildConfig
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.utility.isValidApp
@@ -18,7 +20,7 @@ class NLService : NotificationListenerService() {
         super.onCreate()
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.tiriig.whatsdeleted")
-        registerReceiver(nlServiceReceiver, intentFilter)
+        ContextCompat.registerReceiver(this, nlServiceReceiver, intentFilter, ContextCompat.RECEIVER_EXPORTED)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
