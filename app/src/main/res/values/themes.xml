@@ -23,7 +23,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/icon_color</item>
         <!--         if version is above Android M change the color of the status bar -->
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightStatusBar" >true</item>
         <!--        Setting color to the bottom navigation bar -->
         <item name="android:navigationBarColor">@color/icon_color</item>
     </style>
