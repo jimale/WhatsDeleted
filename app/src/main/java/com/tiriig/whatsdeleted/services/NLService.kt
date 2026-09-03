@@ -3,6 +3,7 @@ package com.tiriig.whatsdeleted.services
 import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.core.app.NotificationCompat
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
 import com.tiriig.whatsdeleted.data.repository.ChatRepository
@@ -48,16 +49,26 @@ class NLService : NotificationListenerService() {
     private fun processNotification(sbn: StatusBarNotification) {
         val extras = sbn.notification.extras
         val title = extras.getString("android.title") ?: return
-        val text = extras.getCharSequence("android.text")?.toString() ?: ""
         val time = sbn.notification.`when`
         val app = sbn.packageName
 
-        // Ignore notifications with invalid titles or empty text (e.g., "Checking for new messages")
-        if (!title.isValidTitle() || text.isEmpty()) return
+        if (!title.isValidTitle()) return
 
-        // Launch a coroutine on our background-threaded scope to do the heavy lifting.
+        // Bundled notifications (phone locked) put all lines here; android.text has only the last one.
+        val messagingStyleMessages = NotificationCompat.MessagingStyle
+            .extractMessagingStyleFromNotification(sbn.notification)
+            ?.messages
+            ?.filter { it.text?.isNotEmpty() == true }
+
         serviceScope.launch {
-            saveNewMessage(title, text, time, app)
+            if (!messagingStyleMessages.isNullOrEmpty()) {
+                messagingStyleMessages.forEach { message ->
+                    saveNewMessage(title, message.text.toString(), message.timestamp, app)
+                }
+            } else {
+                val text = extras.getCharSequence("android.text")?.toString() ?: ""
+                if (text.isNotEmpty()) saveNewMessage(title, text, time, app)
+            }
         }
     }
 
