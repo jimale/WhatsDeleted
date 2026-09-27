@@ -50,6 +50,13 @@ fun String.isDeletionNotice(): Boolean {
     return this == "This message was deleted" || this == "This message was deleted."
 }
 
+// WhatsApp titles group notifications "GroupName: SenderName", and may append a
+// message count to the group name, e.g. "My Group (2 messages): Ali".
+fun String.groupName(): String {
+    val name = substringBefore(":")
+    return if (name.contains("(")) name.substringBefore("(").trim() else name
+}
+
 fun String.isValidApp(): Boolean {
     return when (this) {
         "com.whatsapp" -> true

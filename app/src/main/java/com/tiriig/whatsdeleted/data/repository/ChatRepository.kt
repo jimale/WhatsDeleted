@@ -37,6 +37,24 @@ class ChatRepository @Inject constructor(
         }
     }
 
+    // Bundled (MessagingStyle) notifications re-post the whole conversation every time a
+    // new message arrives, so the last-message check above would re-insert every earlier
+    // line. Each line carries its own timestamp though, which is a reliable key per chat.
+    suspend fun saveTimestampedMessage(chat: Chat) {
+        withContext(Dispatchers.IO) {
+            saveMutex.withLock {
+                val existing = database.userDao().getMessageAt(chat.user, chat.app, chat.dateTime)
+                if (existing == null) database.userDao().save(chat)
+            }
+        }
+    }
+
+    suspend fun messageAt(user: String, app: String, dateTime: Long): DeletedMessage? {
+        return withContext(Dispatchers.IO) {
+            database.userDao().getMessageAt(user, app, dateTime)
+        }
+    }
+
     suspend fun fetchChats(): LiveData<List<Chat>> {
         return withContext(Dispatchers.IO) {
             database.userDao().getChats()

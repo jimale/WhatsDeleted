@@ -13,32 +13,46 @@ This is the part that's easy to get wrong, so read it before touching
 1. `NLService` (a `NotificationListenerService`) gets `onNotificationPosted`
    for every notification on the device and filters to the four supported
    packages via `isValidApp()` (`utility/GeneralExtensions.kt`).
-2. It pulls `android.title` (contact or group name) and `android.text`
-   (message body) straight out of the notification extras. There's no
-   structured API for this — it's whatever WhatsApp/Telegram/Signal happen
-   to put in those fields, so the parsing is fragile by nature.
+2. It pulls `android.title` (contact or group name) out of the notification
+   extras. If the notification has a `MessagingStyle` (WhatsApp/Telegram
+   bundle every unread line of a chat into one when the phone is locked),
+   each line is saved separately with its own sender and timestamp via
+   `saveBundledMessages()`; lines with no sender (or the device owner as
+   sender) are the user's own replies and are skipped. Otherwise it falls
+   back to `android.text`, which only ever holds the last line. There's no
+   structured contract for any of this — it's whatever WhatsApp/Telegram/
+   Signal happen to put in those fields, so the parsing is fragile by nature.
 3. Group vs. direct chat is inferred from whether `title` contains `:` —
-   WhatsApp posts group notification titles as `"GroupName: SenderName"`.
-   `(N messages)` suffixes get stripped off the group name.
+   WhatsApp posts group notification titles as `"GroupName: SenderName"` —
+   or from `MessagingStyle.isGroupConversation`. `(N messages)` suffixes
+   get stripped off the group name (`String.groupName()`).
 4. **Deletion isn't a separate system event.** When a message is deleted,
    the messaging app just posts a new notification for the same chat whose
    body is `"This message was deleted"` (WhatsApp/Telegram) or the same
    text with a trailing period (Signal). `String.isDeletionNotice()`
-   catches both. When that happens, `NLService.flagLastMessageDeleted()`
-   looks up the most recent stored message for that chat and marks it
-   `isDeleted = true` instead of saving the notice as a new message.
+   catches both. When that happens, `NLService.flagDeleted()` marks the
+   stored message `isDeleted = true` instead of saving the notice as a new
+   message. For a bundled notification the notice replaces the deleted line
+   in place and keeps its timestamp, so the exact message is looked up by
+   `(user, app, dateTime)`; for a plain notification all we have is the
+   chat's most recent stored message.
 5. `Notifications.notify()` then posts a local heads-up notification so the
    user knows something was deleted; tapping it sends `MainActivity` the
    `user`/`app`/`notificationDeleted` extras it needs to jump straight into
    that chat's detail screen (see `MainActivity.navigateToChatDetail()`).
 
-If you change how titles/bodies are parsed, keep in mind `ChatRepository.saveMessage()`
-also de-dupes against the last stored message for that `user`, so a
-malformed `user` key silently breaks both dedup and deletion detection.
+If you change how titles/bodies are parsed, keep in mind the `user` key is
+what dedup and deletion detection both hang off, so a malformed one
+silently breaks both. Plain notifications go through
+`ChatRepository.saveMessage()`, which de-dupes against the last stored
+message for that `user`. Bundled ones go through `saveTimestampedMessage()`,
+which de-dupes on `(user, app, dateTime)` instead — the whole conversation
+is re-posted with every new message, so the last-message check would
+re-insert every earlier line.
 
 **Deletion detection is best-effort, not guaranteed.** WhatsApp doesn't
 reliably re-post a "This message was deleted" notification for every
-deletion anymore, so `flagLastMessageDeleted()` only catches the cases
+deletion anymore, so `flagDeleted()` only catches the cases
 where it still does. Don't rip this out — it's free when it works — but
 don't advertise it as reliable either. The fallback the app actually
 depends on is manual: the user notices a message vanished inside WhatsApp

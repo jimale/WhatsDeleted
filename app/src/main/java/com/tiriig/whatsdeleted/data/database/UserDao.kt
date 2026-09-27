@@ -23,6 +23,9 @@ interface UserDao {
     @Query("SELECT id,message,isDeleted,dateTime from chat where user =:user order by dateTime DESC LIMIT 1")
     fun getLastMessage(user: String): DeletedMessage?
 
+    @Query("SELECT id,message,isDeleted,dateTime from chat where user =:user and app = :app and dateTime = :dateTime LIMIT 1")
+    fun getMessageAt(user: String, app: String, dateTime: Long): DeletedMessage?
+
     @Query("UPDATE chat set isDeleted =1 where id =:id")
     fun messageIsDeleted(id: String)
 

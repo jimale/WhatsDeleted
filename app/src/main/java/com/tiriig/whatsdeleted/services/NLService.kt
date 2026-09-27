@@ -3,11 +3,14 @@ package com.tiriig.whatsdeleted.services
 import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.core.app.NotificationCompat
 import com.tiriig.whatsdeleted.R
 import com.tiriig.whatsdeleted.data.model.Chat
+import com.tiriig.whatsdeleted.data.model.DeletedMessage
 import com.tiriig.whatsdeleted.data.repository.ChatRepository
 import com.tiriig.whatsdeleted.utility.Notifications
 import com.tiriig.whatsdeleted.utility.getRandomNum
+import com.tiriig.whatsdeleted.utility.groupName
 import com.tiriig.whatsdeleted.utility.isDeletionNotice
 import com.tiriig.whatsdeleted.utility.isValidApp
 import com.tiriig.whatsdeleted.utility.isValidTitle
@@ -48,12 +51,25 @@ class NLService : NotificationListenerService() {
     private fun processNotification(sbn: StatusBarNotification) {
         val extras = sbn.notification.extras
         val title = extras.getString("android.title") ?: return
-        val text = extras.getCharSequence("android.text")?.toString() ?: ""
         val time = sbn.notification.`when`
         val app = sbn.packageName
 
-        // Ignore notifications with invalid titles or empty text (e.g., "Checking for new messages")
-        if (!title.isValidTitle() || text.isEmpty()) return
+        // Ignore notifications with invalid titles (e.g., "Checking for new messages")
+        if (!title.isValidTitle()) return
+
+        // Bundled notifications (several messages that arrived while the phone was locked)
+        // carry every line in their MessagingStyle, android.text only has the last one.
+        val style = NotificationCompat.MessagingStyle.extractMessagingStyleFromNotification(sbn.notification)
+        if (style != null && style.messages.any { !it.text.isNullOrEmpty() }) {
+            serviceScope.launch {
+                saveBundledMessages(title, style, app)
+            }
+            return
+        }
+
+        // Ignore empty text
+        val text = extras.getCharSequence("android.text")?.toString() ?: ""
+        if (text.isEmpty()) return
 
         // Launch a coroutine on our background-threaded scope to do the heavy lifting.
         serviceScope.launch {
@@ -62,18 +78,15 @@ class NLService : NotificationListenerService() {
     }
 
     private suspend fun saveNewMessage(title: String, text: String, time: Long, app: String) {
+        // Filtered on the raw text, before a group message gets its "Sender: " prefix
+        if (!text.isValidTitle()) return
+
         if (title.contains(":")) {
-            // Assumes "GroupName: SenderName" format
-            var groupName = title.substringBefore(":")
+            val groupName = title.groupName()
             val senderName = title.substringAfter(": ").trim()
 
-            // Clean up group name if it contains message counts (e.g., "My Group (2 messages)")
-            if (groupName.contains("(")) {
-                groupName = groupName.substringBefore("(").trim()
-            }
-
             if (text.isDeletionNotice()) {
-                flagLastMessageDeleted(groupName, app)
+                flagDeleted(repository.lastMessage(groupName), groupName, app)
                 return
             }
 
@@ -81,7 +94,7 @@ class NLService : NotificationListenerService() {
             repository.saveMessage(groupChat)
         } else {
             if (text.isDeletionNotice()) {
-                flagLastMessageDeleted(title, app)
+                flagDeleted(repository.lastMessage(title), title, app)
                 return
             }
 
@@ -91,13 +104,43 @@ class NLService : NotificationListenerService() {
         }
     }
 
-    // The notification content is replaced rather than removed when a message is
-    // deleted, so we just flag the chat's most recent message and let the user know.
-    private suspend fun flagLastMessageDeleted(user: String, app: String) {
-        val lastMessage = repository.lastMessage(user) ?: return
-        if (lastMessage.isDeleted) return
+    // The whole visible conversation is re-posted with every new message, so each line is
+    // keyed by its own timestamp rather than compared against the chat's last message.
+    private suspend fun saveBundledMessages(title: String, style: NotificationCompat.MessagingStyle, app: String) {
+        val isGroup = style.isGroupConversation || title.contains(":")
+        val user = when {
+            !isGroup -> title
+            title.contains(":") -> title.groupName()
+            else -> (style.conversationTitle?.toString() ?: title).groupName()
+        }
+        val ownName = style.user.name?.toString()
 
-        repository.messageIsDeleted(lastMessage.id)
+        for (message in style.messages) {
+            val text = message.text?.toString() ?: continue
+            if (text.isEmpty() || !text.isValidTitle()) continue
+
+            // No sender means the device owner wrote it (e.g. a reply from the notification)
+            val sender = message.person?.name?.toString() ?: continue
+            if (sender == ownName) continue
+
+            if (text.isDeletionNotice()) {
+                // The notice replaces the deleted line in place and keeps its timestamp,
+                // so this finds the exact message instead of the chat's newest one.
+                flagDeleted(repository.messageAt(user, app, message.timestamp), user, app)
+                continue
+            }
+
+            val body = if (isGroup) "$sender: $text" else text
+            repository.saveTimestampedMessage(Chat(getRandomNum(), user, body, message.timestamp, app, isGroup))
+        }
+    }
+
+    // The notification content is replaced rather than removed when a message is
+    // deleted, so we just flag the matching stored message and let the user know.
+    private suspend fun flagDeleted(message: DeletedMessage?, user: String, app: String) {
+        if (message == null || message.isDeleted) return
+
+        repository.messageIsDeleted(message.id)
         notifications.notify(
             user,
             getString(R.string.deleted_message_title),
